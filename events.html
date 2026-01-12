@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Saara El-Arifi</title>
+    <meta name="description" content="Upcoming book signings, author appearances, and events with Saara El-Arifi.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'slate-blue': '#3d4a5c',
+                        'slate-dark': '#2d3748',
+                        'slate-darker': '#1a202c',
+                        'accent': '#e91e8c',
+                        'accent-light': '#f472b6',
+                    },
+                    fontFamily: {
+                        'display': ['Cinzel', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="font-body">
+    <div class="bg-pattern"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-slate-darker/80 backdrop-blur-md border-b border-white/10">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex-shrink-0">
+                <img src="assets/images/authorlogo.png" alt="Saara El-Arifi" class="h-12 logo-white">
+            </a>
+            <div class="nav-desktop hidden md:flex items-center gap-8">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="books.html" class="nav-link">Books</a>
+                <a href="events.html" class="nav-link text-white">Events</a>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="hamburger md:hidden" onclick="toggleMobileMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-6 right-6 text-white text-3xl" onclick="toggleMobileMenu()">&times;</button>
+        <a href="index.html" class="text-2xl text-gray-400 hover:text-white mb-6">Home</a>
+        <a href="books.html" class="text-2xl text-gray-400 hover:text-white mb-6">Books</a>
+        <a href="events.html" class="text-2xl text-white mb-6">Events</a>
+        <a href="news.html" class="text-2xl text-gray-400 hover:text-white mb-6">News</a>
+        <a href="contact.html" class="text-2xl text-gray-400 hover:text-white">Contact</a>
+    </div>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-12 relative">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="font-display text-5xl md:text-6xl text-white mb-4">Events</h1>
+            <p class="text-gray-400 text-xl max-w-2xl mx-auto">Join me at upcoming book signings, festivals, and author
+                appearances.</p>
+        </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="py-12">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="font-display text-2xl text-white mb-8 flex items-center gap-3">
+                <span class="w-3 h-3 bg-accent rounded-full animate-pulse"></span>
+                Upcoming Events
+            </h2>
+
+            <div class="space-y-6" id="events-list">
+                <!-- Events loaded dynamically from CMS -->
+                <div class="text-center py-12 text-gray-400">Loading events...</div>
+            </div>
+            <!-- Event 1 -->
+            <div class="card p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="bg-accent/20 rounded-xl p-4 text-center min-w-[100px] flex-shrink-0">
+                        <p class="text-accent font-bold text-3xl">15</p>
+                        <p class="text-accent-light text-sm uppercase">Feb 2025</p>
+                    </div>
+                    <div class="flex-1">
+                        <span class="text-xs text-accent uppercase tracking-wider">Book Signing</span>
+                        <h3 class="text-xl text-white font-semibold mt-1 mb-2">Cursebound Tour - London</h3>
+                        <p class="text-gray-400 mb-4">Join me for the London stop of the Cursebound book tour! I'll
+                            be signing copies and chatting about the Faebound series.</p>
+                        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                Waterstones Piccadilly
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                6:30 PM
+                            </span>
+                        </div>
+                        <a href="#" class="btn-primary text-sm">Get Tickets</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="card p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="bg-accent/20 rounded-xl p-4 text-center min-w-[100px] flex-shrink-0">
+                        <p class="text-accent font-bold text-3xl">22</p>
+                        <p class="text-accent-light text-sm uppercase">Feb 2025</p>
+                    </div>
+                    <div class="flex-1">
+                        <span class="text-xs text-accent uppercase tracking-wider">Book Signing</span>
+                        <h3 class="text-xl text-white font-semibold mt-1 mb-2">Cursebound Tour - Manchester</h3>
+                        <p class="text-gray-400 mb-4">The Cursebound tour heads north! Meet me in Manchester for
+                            signings and a Q&A session.</p>
+                        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                Waterstones Deansgate
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                7:00 PM
+                            </span>
+                        </div>
+                        <a href="#" class="btn-primary text-sm">Get Tickets</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event 3 -->
+            <div class="card p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-start gap-6">
+                    <div class="bg-accent/20 rounded-xl p-4 text-center min-w-[100px] flex-shrink-0">
+                        <p class="text-accent font-bold text-3xl">01</p>
+                        <p class="text-accent-light text-sm uppercase">Mar 2025</p>
+                    </div>
+                    <div class="flex-1">
+                        <span class="text-xs text-accent uppercase tracking-wider">Book Signing</span>
+                        <h3 class="text-xl text-white font-semibold mt-1 mb-2">Cursebound Tour - Edinburgh</h3>
+                        <p class="text-gray-400 mb-4">The final stop of the UK tour! Join me in beautiful Edinburgh.
+                        </p>
+                        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                Waterstones West End
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                6:00 PM
+                            </span>
+                        </div>
+                        <a href="#" class="btn-primary text-sm">Get Tickets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Request Appearance -->
+    <section class="py-16 bg-slate-darker/50">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-display text-3xl text-white mb-4">Want Me at Your Event?</h2>
+            <p class="text-gray-400 mb-8 max-w-xl mx-auto">For speaking engagements, festival appearances, and event
+                requests, please get in touch through my contact page.</p>
+            <a href="contact.html" class="btn-primary">Request an Appearance</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <img src="assets/images/authorlogo.png" alt="Saara El-Arifi" class="h-10 logo-white mb-4">
+                    <p class="text-gray-400 text-sm">No. 1 Sunday Times bestselling author of fantasy and historical
+                        fiction.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="books.html" class="block text-gray-400 hover:text-white transition text-sm">Books</a>
+                        <a href="events.html" class="block text-gray-400 hover:text-white transition text-sm">Events</a>
+                        <a href="news.html" class="block text-gray-400 hover:text-white transition text-sm">News</a>
+                        <a href="contact.html"
+                            class="block text-gray-400 hover:text-white transition text-sm">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <div class="flex gap-3">
+                        <a href="https://instagram.com/saaraelarifi" target="_blank" class="social-icon"
+                            aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        </a>
+                        <a href="https://tiktok.com/@saaraelarifi" target="_blank" class="social-icon"
+                            aria-label="TikTok">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">&copy; 2025 Saara El-Arifi. All rights reserved.</p>
+                <p class="text-gray-500 text-sm">Illustrations and logo by © Sophie Dunster</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/cms-loader.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

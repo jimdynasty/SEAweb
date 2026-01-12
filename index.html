@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saara El-Arifi | No. 1 Sunday Times Bestselling Author</title>
+  <meta name="description"
+    content="Saara El-Arifi is a No. 1 Sunday Times bestselling author of fantasy and historical fiction, including The Ending Fire Trilogy, The Faebound Trilogy, and Cleopatra.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'slate-blue': '#3d4a5c',
+            'slate-dark': '#2d3748',
+            'slate-darker': '#1a202c',
+            'accent': '#e91e8c',
+            'accent-light': '#f472b6',
+          },
+          fontFamily: {
+            'display': ['Cinzel', 'serif'],
+            'body': ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="font-body">
+  <!-- Background -->
+  <div class="bg-pattern"></div>
+  <div class="bg-overlay"></div>
+
+  <!-- Header - Transparent, no background -->
+  <header class="absolute top-0 left-0 right-0 z-50">
+    <nav class="max-w-7xl mx-auto px-16 lg:px-24 py-32 flex items-center justify-end">
+      <!-- Desktop Navigation (right-aligned, vertically centered with logo) -->
+      <div class="nav-desktop hidden md:flex items-center gap-8">
+        <a href="index.html" class="nav-link text-white">Home</a>
+        <a href="books.html" class="nav-link">Books</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="news.html" class="nav-link">News</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="hamburger md:hidden ml-auto" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="absolute top-6 right-6 text-white text-3xl" onclick="toggleMobileMenu()">&times;</button>
+    <a href="index.html" class="text-2xl text-white mb-6">Home</a>
+    <a href="books.html" class="text-2xl text-gray-400 hover:text-white mb-6">Books</a>
+    <a href="events.html" class="text-2xl text-gray-400 hover:text-white mb-6">Events</a>
+    <a href="news.html" class="text-2xl text-gray-400 hover:text-white mb-6">News</a>
+    <a href="contact.html" class="text-2xl text-gray-400 hover:text-white">Contact</a>
+  </div>
+
+  <!-- Hero Section with Creative Overlapping Layout -->
+  <section class="relative min-h-screen pt-12 overflow-visible">
+    <!-- Decorative wisps - fixed to viewport -->
+    <img src="assets/images/pinkwisp1.png" alt="" class="wisp wisp-animate wisp-fixed-top">
+    <img src="assets/images/pinkwisp2.png" alt="" class="wisp wisp-animate wisp-fixed-bottom"
+      style="animation-delay: -3s;">
+
+    <div class="max-w-7xl mx-auto px-16 lg:px-24">
+      <!-- Large Logo overlapping navbar -->
+      <div class="relative z-40 -mt-4 mb-12">
+        <img src="assets/images/authorlogo.png" alt="Saara El-Arifi" class="h-56 md:h-64 lg:h-72 logo-white"
+          style="filter: invert(1) drop-shadow(0 0 50px rgba(255, 255, 255, 0.5));">
+      </div>
+
+      <!-- Overlapping Content - Mobile: Stack, Desktop: Overlap -->
+      <div class="relative flex flex-col md:flex-row md:items-start gap-8">
+        <!-- Author Photo - Shows first on mobile, overlaps on desktop -->
+        <div
+          class="relative md:absolute md:right-0 md:top-0 w-full md:w-1/2 lg:w-5/12 md:-mt-16 lg:-mt-24 z-20 order-1 md:order-2">
+          <div class="relative">
+            <!-- Accent glow behind photo -->
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-accent/20 to-purple-500/20 blur-3xl rounded-full scale-110">
+            </div>
+            <!-- Photo with decorative border -->
+            <div class="relative">
+              <img src="assets/images/authorphoto1.png" alt="Saara El-Arifi"
+                class="relative rounded-2xl shadow-2xl border-4 border-accent/30 w-full hover:scale-105 hover:rotate-1 transition-all duration-500">
+              <!-- Decorative corner accent -->
+              <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-xl"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio Text - Positioned to overlap with photo by 20% on desktop -->
+        <div class="relative z-50 w-full md:w-[60%] order-2 md:order-1">
+          <div
+            class="space-y-5 text-gray-300 bg-slate-darker/90 backdrop-blur-sm p-8 rounded-2xl border border-white/10 shadow-2xl">
+            <p class="text-lg leading-relaxed">
+              <strong class="text-accent text-xl font-display">SAARA EL-ARIFI</strong> is a No. 1 Sunday Times
+              bestselling
+              author of fantasy and historical fiction. El-Arifi knew she was a storyteller from the
+              moment she told her first lie.
+            </p>
+            <p class="leading-relaxed">
+              After a decade of working in marketing and communications, she returned to academia to
+              complete a master's degree in African studies specialising in Cleopatra's myth and her
+              impact on Black women.
+            </p>
+            <p class="leading-relaxed">
+              Her debut series, <em class="text-accent-light">The Ending Fire Trilogy</em>, draws inspiration from West
+              African and
+              Arabian mythology. She is also the author of <em class="text-accent-light">The Faebound Trilogy</em> and
+              the
+              standalone historical novel <em class="text-accent-light">Cleopatra</em>.
+            </p>
+            <p class="leading-relaxed italic text-gray-400">
+              She currently resides in London as a full-time procrastinator.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Book Series Section -->
+  <section class="pt-8 pb-16 relative" id="books">
+    <div class="max-w-7xl mx-auto px-16 lg:px-24">
+      <h2 class="font-display text-4xl md:text-5xl text-center text-white mb-4">My Worlds</h2>
+      <p class="text-gray-400 text-center mb-16 max-w-2xl mx-auto">Explore epic tales of magic, rebellion, and destiny
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Ending Fire Trilogy -->
+        <div class="card p-6 text-center">
+          <div
+            class="w-full h-96 rounded-lg mb-6 flex items-center justify-center group overflow-visible">
+            <img src="assets/images/final-strife.jpg" alt="The Final Strife"
+              class="h-full w-auto object-contain rounded-lg group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <h3 class="font-display text-xl text-white mb-3">The Ending Fire Trilogy</h3>
+          <p class="text-gray-400 text-sm mb-4">An empire built on blood. Three women destined to bring it down.</p>
+          <a href="books.html#ending-fire" class="text-accent hover:text-accent-light transition">Learn More →</a>
+        </div>
+
+        <!-- Faebound Trilogy -->
+        <div class="card p-6 text-center">
+          <div class="w-full h-96 rounded-lg mb-6 flex items-center justify-center group overflow-visible">
+            <img src="assets/images/faebound.jpg" alt="Faebound"
+              class="h-full w-auto object-contain rounded-lg group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <h3 class="font-display text-xl text-white mb-3">The Faebound Trilogy</h3>
+          <p class="text-gray-400 text-sm mb-4">Divided by blood. Imprisoned by fate. Bound by desire.</p>
+          <a href="books.html#faebound" class="text-accent hover:text-accent-light transition">Learn More →</a>
+        </div>
+
+        <!-- Cleopatra -->
+        <div class="card p-6 text-center ">
+          <div class="w-full h-96 rounded-lg mb-6 flex items-center justify-center group overflow-visible relative">
+            <!-- Release banner overlaid on top -->
+            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+              <span
+                class="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg whitespace-nowrap">
+                OUT FEB 26
+              </span>
+            </div>
+            <img src="assets/images/cleopatra.jpg" alt="Cleopatra"
+              class="h-full w-auto object-contain rounded-lg group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <h3 class="font-display text-xl text-white mb-3">Cleopatra</h3>
+          <p class="text-gray-400 text-sm mb-4">This is not the story of how I died. But how I lived.</p>
+          <a href="books.html#cleopatra" class="text-accent hover:text-accent-light transition">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events Section -->
+  <section class="py-16 bg-slate-darker/50" id="events">
+    <div class="max-w-7xl mx-auto px-16 lg:px-24">
+      <h2 class="font-display text-4xl md:text-5xl text-center text-white mb-4">Upcoming Events</h2>
+      <p class="text-gray-400 text-center mb-16">Meet me in person at these upcoming appearances</p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="home-events">
+        <!-- Events loaded dynamically from CMS -->
+        <div class="text-center py-12 col-span-full text-gray-400">Loading events...</div>
+      </div>
+
+      <div class="text-center">
+        <a href="events.html" class="btn-secondary">View All Events</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="py-16 relative overflow-visible" id="newsletter">
+
+
+    <div class="max-w-3xl mx-auto px-6 text-center relative">
+      <h2 class="font-display text-4xl md:text-5xl text-white mb-4">Stay in the Loop</h2>
+      <p class="text-gray-400 mb-8">Subscribe for exclusive updates, cover reveals, and behind-the-scenes content.</p>
+
+      <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" action="#" method="POST">
+        <input type="email" placeholder="Enter your email" class="newsletter-input flex-1" required>
+        <button type="submit" class="btn-primary whitespace-nowrap">Subscribe</button>
+      </form>
+
+      <p class="text-gray-500 text-sm mt-4">No spam, ever. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12">
+    <div class="max-w-7xl mx-auto px-16 lg:px-24">
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <!-- Logo & About -->
+        <div>
+          <img src="assets/images/authorlogo.png" alt="Saara El-Arifi" class="h-10 logo-white mb-4">
+          <p class="text-gray-400 text-sm">No. 1 Sunday Times bestselling author of fantasy and historical fiction.</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+          <div class="space-y-2">
+            <a href="books.html" class="block text-gray-400 hover:text-white transition text-sm">Books</a>
+            <a href="events.html" class="block text-gray-400 hover:text-white transition text-sm">Events</a>
+            <a href="news.html" class="block text-gray-400 hover:text-white transition text-sm">News</a>
+            <a href="contact.html" class="block text-gray-400 hover:text-white transition text-sm">Contact</a>
+          </div>
+        </div>
+
+        <!-- Social -->
+        <div>
+          <h4 class="text-white font-semibold mb-4">Connect</h4>
+          <div class="flex gap-3">
+            <a href="https://instagram.com/saaraelarifi" target="_blank" class="social-icon" aria-label="Instagram">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+            <a href="https://tiktok.com/@saaraelarifi" target="_blank" class="social-icon" aria-label="TikTok">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-gray-500 text-sm">&copy; 2025 Saara El-Arifi. All rights reserved.</p>
+        <p class="text-gray-500 text-sm">Illustrations and logo by © Sophie Dunster</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="js/cms-loader.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

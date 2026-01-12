@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books | Saara El-Arifi</title>
+    <meta name="description"
+        content="Explore Saara El-Arifi's bestselling fantasy novels including The Ending Fire Trilogy, The Faebound Trilogy, and Cleopatra.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'slate-blue': '#3d4a5c',
+                        'slate-dark': '#2d3748',
+                        'slate-darker': '#1a202c',
+                        'accent': '#e91e8c',
+                        'accent-light': '#f472b6',
+                    },
+                    fontFamily: {
+                        'display': ['Cinzel', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="font-body">
+    <!-- Background -->
+    <div class="bg-pattern"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-slate-darker/80 backdrop-blur-md border-b border-white/10">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="flex-shrink-0">
+                <img src="assets/images/authorlogo.png" alt="Saara El-Arifi" class="h-12 logo-white">
+            </a>
+            <div class="nav-desktop hidden md:flex items-center gap-8">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="books.html" class="nav-link text-white">Books</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="hamburger md:hidden" onclick="toggleMobileMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-6 right-6 text-white text-3xl" onclick="toggleMobileMenu()">&times;</button>
+        <a href="index.html" class="text-2xl text-gray-400 hover:text-white mb-6">Home</a>
+        <a href="books.html" class="text-2xl text-white mb-6">Books</a>
+        <a href="events.html" class="text-2xl text-gray-400 hover:text-white mb-6">Events</a>
+        <a href="news.html" class="text-2xl text-gray-400 hover:text-white mb-6">News</a>
+        <a href="contact.html" class="text-2xl text-gray-400 hover:text-white">Contact</a>
+    </div>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-16 relative">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="font-display text-5xl md:text-6xl text-white mb-4">My Books</h1>
+            <p class="text-gray-400 text-xl max-w-2xl mx-auto">Epic tales of magic, rebellion, and destiny inspired by
+                West African and Arabian mythology.</p>
+        </div>
+    </section>
+
+    <!-- Cleopatra (Featured) -->
+    <section class="py-8" id="cleopatra">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="card p-8 md:p-12">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="relative mx-auto flex justify-center items-center">
+                        <!-- Gold glow behind book -->
+                        <div class="absolute inset-0 flex justify-center items-center">
+                            <div class="bg-amber-500/30 blur-3xl rounded-full w-64 h-64"></div>
+                        </div>
+                        <!-- OUT FEB 26 banner overlaid on top -->
+                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                            <span
+                                class="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-3 rounded-full text-base font-semibold shadow-xl whitespace-nowrap">
+                                OUT FEB 26
+                            </span>
+                        </div>
+                        <img src="assets/images/cleopatra.jpg" alt="Cleopatra"
+                            class="book-cover relative w-64 h-auto rounded-lg shadow-2xl">
+                    </div>
+                    <div>
+                        <h2 class="font-display text-4xl text-white mb-6">Cleopatra</h2>
+                        <blockquote class="text-xl text-gray-300 italic mb-6 border-l-4 border-accent pl-6">
+                            "You know my name. But you do not know me. Your historians call me seductress, but I was
+                            ever in love's thrall. Your playwrights speak of witchcraft, but my talents came from the
+                            gods themselves. Your poets sing of my bloodlust, but I was always protecting my children."
+                        </blockquote>
+                        <p class="text-gray-400 mb-6">From the #1 bestselling author of FAEBOUND and THE FINAL STRIFE,
+                            this epic and groundbreaking new novel shows us Cleopatra on her own terms.</p>
+                        <p class="text-white font-semibold mb-8">This is not the story of how I died. But how I lived.
+                        </p>
+
+                        <h4 class="text-white font-semibold mb-4">Buy Now:</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#" class="btn-primary text-sm">Amazon UK</a>
+                            <a href="#" class="btn-secondary text-sm">Waterstones</a>
+                            <a href="#" class="btn-secondary text-sm">Bookshop.org</a>
+                            <a href="#" class="btn-secondary text-sm">Amazon US</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Faebound Trilogy -->
+    <section class="py-16 bg-slate-darker/50" id="faebound">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="font-display text-4xl text-white mb-4">The Faebound Trilogy</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Divided by blood. Imprisoned by fate. Bound by
+                    desire. Welcome to the intoxicating world of the fae.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Faebound -->
+                <div class="card p-6 text-center">
+                    <div class="w-48 h-72 mx-auto rounded-lg mb-6 overflow-visible shadow-xl group">
+                        <img src="assets/images/faebound.jpg" alt="Faebound"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-3">Faebound</h3>
+                    <p class="text-gray-400 text-sm mb-4">When a fatal mistake leads to exile, two sisters are thrust
+                        into the seductive world of the fae court.</p>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <a href="#" class="btn-secondary text-xs py-2 px-4">Amazon</a>
+                        <a href="#" class="btn-secondary text-xs py-2 px-4">Waterstones</a>
+                    </div>
+                </div>
+
+                <!-- Cursebound -->
+                <div class="card p-6 text-center ">
+                    <div class="w-48 h-72 mx-auto rounded-lg mb-6 overflow-visible shadow-xl group">
+                        <img src="assets/images/cursebound.jpg" alt="Cursebound"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-3">Cursebound</h3>
+                    <p class="text-gray-400 text-sm mb-4">The spellbinding sequel to the #1 bestseller. Betrayed by
+                        destiny. Cursed by love. Bound by hope.</p>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <a href="#" class="btn-primary text-xs py-2 px-4">Amazon</a>
+                        <a href="#" class="btn-secondary text-xs py-2 px-4">Waterstones</a>
+                    </div>
+                </div>
+
+                <!-- Earthbound -->
+                <div class="card p-6 text-center">
+                    <div class="w-48 h-72 mx-auto rounded-lg mb-6 shadow-xl group overflow-visible relative">
+                        <!-- Release banner overlaid on top -->
+                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                            <span
+                                class="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg whitespace-nowrap">
+                                OUT AUG 26
+                            </span>
+                        </div>
+                        <img src="assets/images/earthbound.jpg" alt="Earthbound"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-3">Earthbound</h3>
+                    <p class="text-gray-400 text-sm mb-4">The epic conclusion to the Faebound Trilogy. Broken by love.
+                        Trapped by war. Bound by secrets.</p>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <a href="https://www.amazon.co.uk/Earthbound-Faebound-Book-Saara-El-Arifi-ebook/dp/B0FT1TFRXX"
+                            class="btn-secondary text-xs py-2 px-4">Amazon</a>
+                        <a href="#" class="btn-secondary text-xs py-2 px-4">Waterstones</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- The Ending Fire Trilogy -->
+    <section class="py-16" id="ending-fire">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="font-display text-4xl text-white mb-4">The Ending Fire Trilogy</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">The Empire rules by blood. Red is the blood of the
+                    elite. Blue is the blood of the poor. Clear is the blood of the invisible.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- The Final Strife -->
+                <div class="card p-6 text-center">
+                    <div class="w-48 h-72 mx-auto rounded-lg mb-6 overflow-visible shadow-xl group">
+                        <img src="assets/images/final-strife.jpg" alt="The Final Strife"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-3">The Final Strife</h3>
+                    <p class="text-gray-400 text-sm mb-4">Three women from different blood classes unite to bring down
+                        an empire built on oppression.</p>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <a href="#" class="btn-secondary text-xs py-2 px-4">Amazon</a>
+                        <a href="#" class="btn-secondary text-xs py-2 px-4">Waterstones</a>
+                    </div>
+                </div>
+
+                <!-- The Battle Drum -->
+                <div class="card p-6 text-center">
+                    <div class="w-48 h-72 mx-auto rounded-lg mb-6 overflow-visible shadow-xl group">
+                        <img src="assets/images/battle-drum.jpg" alt="The Battle Drum"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-3">The Battle Drum</h3>
+                    <p class="text-gray-400 text-sm mb-4">Murder. Secrets. Sacrifice. The Empire beats with the song of
+                        war.</p>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <a href="#" class="btn-secondary text-xs py-2 px-4">Amazon</a>
+                        <a href="#" class="btn-secondary text-xs py-2 px-4">Waterstones</a>
+                    </div>
+                </div>
+
+                <!-- The Ending Fire -->
+                <div class="card p-6 text-center">
+                    <div class="w-48 h-72 mx-auto rounded-lg mb-6 overflow-visible shadow-xl group">
+                        <img src="assets/images/ending-fire.jpg" alt="The Ending Fire"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <h3 class="font-display text-xl text-white mb-3">The Ending Fire</h3>
+                    <p class="text-gray-400 text-sm mb-4">The epic conclusion to the trilogy. For rebellion to ignite,
+                        something must burn.</p>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <a href="#" class="btn-secondary text-xs py-2 px-4">Amazon</a>
+                        <a href="#" class="btn-secondary text-xs py-2 px-4">Waterstones</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading Order -->
+    <section class="py-16 bg-slate-darker/50">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-display text-3xl text-white mb-6">Reading Order</h2>
+            <p class="text-gray-400 mb-8">Each series is standalone. Start wherever calls to you:</p>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="card p-6">
+                    <p class="text-accent font-semibold mb-2">Epic Fantasy</p>
+                    <p class="text-white">The Ending Fire Trilogy</p>
+                    <p class="text-gray-500 text-sm mt-2">3 books • Complete</p>
+                </div>
+                <div class="card p-6">
+                    <p class="text-accent font-semibold mb-2">Romantic Fantasy</p>
+                    <p class="text-white">The Faebound Trilogy</p>
+                    <p class="text-gray-500 text-sm mt-2">2/3 books • Ongoing</p>
+                </div>
+                <div class="card p-6">
+                    <p class="text-accent font-semibold mb-2">Historical Fiction</p>
+                    <p class="text-white">Cleopatra</p>
+                    <p class="text-gray-500 text-sm mt-2">Standalone</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <img src="assets/images/authorlogo.png" alt="Saara El-Arifi" class="h-10 logo-white mb-4">
+                    <p class="text-gray-400 text-sm">No. 1 Sunday Times bestselling author of fantasy and historical
+                        fiction.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="books.html" class="block text-gray-400 hover:text-white transition text-sm">Books</a>
+                        <a href="events.html" class="block text-gray-400 hover:text-white transition text-sm">Events</a>
+                        <a href="news.html" class="block text-gray-400 hover:text-white transition text-sm">News</a>
+                        <a href="contact.html"
+                            class="block text-gray-400 hover:text-white transition text-sm">Contact</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Connect</h4>
+                    <div class="flex gap-3">
+                        <a href="https://instagram.com/saaraelarifi" target="_blank" class="social-icon"
+                            aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        </a>
+                        <a href="https://tiktok.com/@saaraelarifi" target="_blank" class="social-icon"
+                            aria-label="TikTok">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">&copy; 2025 Saara El-Arifi. All rights reserved.</p>
+                <p class="text-gray-500 text-sm">Illustrations and logo by © Sophie Dunster</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
