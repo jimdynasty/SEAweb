@@ -1,67 +1,5 @@
-// ============================================
-// CMS Content Loader
-// Dynamically loads news and events from markdown files via GitHub API
-// ============================================
-
-const GITHUB_REPO = 'jimdynasty/SEAweb';
-const GITHUB_BRANCH = 'main';
-
-// Parse markdown frontmatter
-function parseFrontmatter(text) {
-  const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!match) return null;
-
-  const frontmatter = {};
-  const lines = match[1].split('\n');
-
-  lines.forEach(line => {
-    const colonIndex = line.indexOf(':');
-    if (colonIndex > 0) {
-      const key = line.substring(0, colonIndex).trim();
-      let value = line.substring(colonIndex + 1).trim();
-
-      // Remove quotes
-      value = value.replace(/^["']|["']$/g, '');
-
-      // Parse booleans
-      if (value === 'true') value = true;
-      if (value === 'false') value = false;
-
-      frontmatter[key] = value;
-    }
-  });
-
-  frontmatter.content = match[2].trim();
-  return frontmatter;
-}
-
-// Fetch file list from GitHub
-async function fetchFileList(path) {
-  try {
-    const response = await fetch(
-      `https://api.github.com/repos/${GITHUB_REPO}/contents/${path}?ref=${GITHUB_BRANCH}`
-    );
-    if (!response.ok) return [];
-    const files = await response.json();
-    return files.filter(f => f.name.endsWith('.md'));
-  } catch (error) {
-    console.error(`Error fetching file list from ${path}:`, error);
-    return [];
-  }
-}
-
-// Fetch and parse a markdown file
-async function fetchMarkdownFile(url) {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) return null;
-    const text = await response.text();
-    return parseFrontmatter(text);
-  } catch (error) {
-    console.error('Error fetching markdown file:', error);
-    return null;
-  }
-}
+// Load events and news from generated JSON files
+const DATA_BASE_URL = window.location.origin;
 
 // Format date
 function formatDate(dateString) {
@@ -83,39 +21,12 @@ function formatEventDate(dateString) {
   };
 }
 
-// Load news posts from GitHub
-async function loadNews() {
-  try {
-    const files = await fetchFileList('content/news');
-    const posts = [];
-
-    for (const file of files) {
-      const content = await fetchMarkdownFile(file.download_url);
-      if (content) {
-        posts.push(content);
-      }
-    }
-
-    // Sort by date, newest first
-    return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-  } catch (error) {
-    console.error('Error loading news:', error);
-    return [];
-  }
-}
-
-// Load events from GitHub
+// Load events from generated JSON
 async function loadEvents() {
   try {
-    const files = await fetchFileList('content/events');
-    const events = [];
-
-    for (const file of files) {
-      const content = await fetchMarkdownFile(file.download_url);
-      if (content) {
-        events.push(content);
-      }
-    }
+    const response = await fetch(`${DATA_BASE_URL}/events.json`);
+    if (!response.ok) return [];
+    const events = await response.json();
 
     // Filter out past events and sort by date
     const now = new Date();
@@ -128,13 +39,28 @@ async function loadEvents() {
   }
 }
 
+// Load news from generated JSON
+async function loadNews() {
+  try {
+    const response = await fetch(`${DATA_BASE_URL}/news.json`);
+    if (!response.ok) return [];
+    const posts = await response.json();
+
+    // Sort by date, newest first
+    return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  } catch (error) {
+    console.error('Error loading news:', error);
+    return [];
+  }
+}
+
 // Render events on homepage
 async function renderHomeEvents() {
   const container = document.getElementById('home-events');
   if (!container) return;
 
   const events = await loadEvents();
-  const upcomingEvents = events.slice(0, 3); // Show only next 3
+  const upcomingEvents = events.slice(0, 3);
 
   if (upcomingEvents.length === 0) {
     container.innerHTML = '<p class="text-gray-400 text-center">No upcoming events at this time.</p>';
@@ -213,7 +139,6 @@ async function renderNewsPosts() {
   const featuredPost = posts.find(p => p.featured);
   const regularPosts = posts.filter(p => !p.featured);
 
-  // Render featured post
   if (featuredContainer && featuredPost) {
     featuredContainer.innerHTML = `
       <div class="card p-8 border-accent/30">
@@ -225,7 +150,6 @@ async function renderNewsPosts() {
     `;
   }
 
-  // Render regular posts
   if (postsContainer) {
     postsContainer.innerHTML = regularPosts.map(post => `
       <article class="card p-6">
@@ -237,7 +161,7 @@ async function renderNewsPosts() {
   }
 }
 
-// Initialize on page load
+// Initialize
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
@@ -245,12 +169,7 @@ if (document.readyState === 'loading') {
 }
 
 function init() {
-  // Homepage
   renderHomeEvents();
-
-  // Events page
   renderEventsPage();
-
-  // News page
   renderNewsPosts();
 }
