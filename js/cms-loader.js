@@ -1,5 +1,78 @@
-// Load events and news from generated JSON files
-const DATA_BASE_URL = window.location.origin;
+// CMS Content Loader - Client-side markdown parsing
+// Fetches markdown files directly, no build step needed!
+
+// Parse markdown frontmatter
+function parseFrontmatter(text) {
+  const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!match) return null;
+
+  const frontmatter = {};
+  const frontmatterText = match[1];
+
+  let currentKey = null;
+  let currentValue = [];
+
+  frontmatterText.split('\n').forEach(line => {
+    if (line.match(/^[a-zA-Z_][a-zA-Z0-9_]*:/) && !line.startsWith(' ')) {
+      if (currentKey) {
+        let value = currentValue.join(' ').trim();
+        value = value.replace(/^["']|["']$/g, '');
+        if (value === 'true') value = true;
+        if (value === 'false') value = false;
+        frontmatter[currentKey] = value;
+      }
+
+      const colonIndex = line.indexOf(':');
+      currentKey = line.substring(0, colonIndex).trim();
+      const firstValue = line.substring(colonIndex + 1).trim();
+      currentValue = firstValue ? [firstValue] : [];
+    } else if (currentKey && line.trim() && line.startsWith('  ')) {
+      currentValue.push(line.trim());
+    }
+  });
+
+  if (currentKey) {
+    let value = currentValue.join(' ').trim();
+    value = value.replace(/^["']|["']$/g, '');
+    if (value === 'true') value = true;
+    if (value === 'false') value = false;
+    frontmatter[currentKey] = value;
+  }
+
+  frontmatter.content = match[2].trim();
+  return frontmatter;
+}
+
+// Fetch list of markdown files from a directory
+async function fetchMarkdownFiles(folder) {
+  try {
+    // Fetch the directory listing from GitHub  
+    const response = await fetch(`https://api.github.com/repos/jimdynasty/SEAweb/contents/content/${folder}`);
+    if (!response.ok) return [];
+
+    const files = await response.json();
+    const markdownFiles = files.filter(f => f.name.endsWith('.md'));
+
+    // Fetch and parse each markdown file
+    const results = [];
+    for (const file of markdownFiles) {
+      try {
+        const contentResponse = await fetch(file.download_url);
+        if (contentResponse.ok) {
+          const text = await contentResponse.text();
+          const parsed = parseFrontmatter(text);
+          if (parsed) results.push(parsed);
+        }
+      } catch (error) {
+        console.error(`Error loading ${file.name}:`, error);
+      }
+    }
+    return results;
+  } catch (error) {
+    console.error(`Error fetching ${folder}:`, error);
+    return [];
+  }
+}
 
 // Format date
 function formatDate(dateString) {
@@ -21,37 +94,19 @@ function formatEventDate(dateString) {
   };
 }
 
-// Load events from generated JSON
+// Load events
 async function loadEvents() {
-  try {
-    const response = await fetch(`${DATA_BASE_URL}/public/events.json`);
-    if (!response.ok) return [];
-    const events = await response.json();
-
-    // Filter out past events and sort by date
-    const now = new Date();
-    return events
-      .filter(event => !event.past && new Date(event.date) >= now)
-      .sort((a, b) => new Date(a.date) - new Date(b.date));
-  } catch (error) {
-    console.error('Error loading events:', error);
-    return [];
-  }
+  const events = await fetchMarkdownFiles('events');
+  const now = new Date();
+  return events
+    .filter(event => !event.past && new Date(event.date) >= now)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 }
 
-// Load news from generated JSON
+// Load news
 async function loadNews() {
-  try {
-    const response = await fetch(`${DATA_BASE_URL}/public/news.json`);
-    if (!response.ok) return [];
-    const posts = await response.json();
-
-    // Sort by date, newest first
-    return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-  } catch (error) {
-    console.error('Error loading news:', error);
-    return [];
-  }
+  const posts = await fetchMarkdownFiles('news');
+  return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
 // Render events on homepage
@@ -167,9 +222,7 @@ async function renderNewsPosts() {
   const posts = await loadNews();
 
   if (posts.length === 0) {
-    if (featuredContainer) {
-      featuredContainer.innerHTML = '';
-    }
+    if (featuredContainer) featuredContainer.innerHTML = '';
     if (postsContainer) {
       postsContainer.innerHTML = '<div class="max-w-4xl mx-auto px-6"><div class="text-center py-12 text-gray-400">No news posts yet. Check back soon!</div></div>';
     }
