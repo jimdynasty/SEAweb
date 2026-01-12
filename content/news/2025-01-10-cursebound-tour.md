@@ -1,10 +1,12 @@
 ---
-title: "Cursebound Tour TICKETS"
-date: 2025-01-10T10:00:00Z
+title: Test news A
+date: 2025-01-10T10:00:00.000Z
 featured: true
-category: "Tour"
-excerpt: "The Cursebound UK tour is HERE! Grab your tickets for London, Manchester, and Edinburgh stops. Limited availability — don't miss out on meeting Saara and getting your books signed!"
-series: "Faebound"
+category: Tour
+excerpt: The Cursebound UK tour is HERE! Grab your tickets for London,
+  Manchester, and Edinburgh stops. Limited availability — don't miss out on
+  meeting Saara and getting your books signed!
+series: Faebound
 ---
 
 The Cursebound UK tour is officially happening, and tickets are now available!
