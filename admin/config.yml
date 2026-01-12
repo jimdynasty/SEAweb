@@ -1,7 +1,6 @@
 backend:
-  name: github
-  repo: jimdynasty/SEAweb
-  branch: main # or master, depending on your setup
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
 
 # When running locally, use test-repo backend
 local_backend: true
