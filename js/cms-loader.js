@@ -24,7 +24,7 @@ function formatEventDate(dateString) {
 // Load events from generated JSON
 async function loadEvents() {
   try {
-    const response = await fetch(`${DATA_BASE_URL}/events.json`);
+    const response = await fetch(`${DATA_BASE_URL}/public/events.json`);
     if (!response.ok) return [];
     const events = await response.json();
 
@@ -42,7 +42,7 @@ async function loadEvents() {
 // Load news from generated JSON
 async function loadNews() {
   try {
-    const response = await fetch(`${DATA_BASE_URL}/news.json`);
+    const response = await fetch(`${DATA_BASE_URL}/public/news.json`);
     if (!response.ok) return [];
     const posts = await response.json();
 
