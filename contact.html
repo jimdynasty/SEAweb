@@ -151,7 +151,12 @@
             <h2 class="font-display text-3xl text-white text-center mb-4">Send a Message</h2>
             <p class="text-gray-400 text-center mb-8">To contact me, Pudding, or Noodle, use the form below.</p>
 
-            <form class="space-y-6" action="#" method="POST">
+            <form class="space-y-6" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <!-- Hidden field for spam protection -->
+                <p class="hidden">
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                </p>
+
                 <!-- Name -->
                 <div>
                     <label for="name" class="block text-white font-medium mb-2">Name</label>
