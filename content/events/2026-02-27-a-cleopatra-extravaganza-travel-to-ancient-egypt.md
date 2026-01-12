@@ -1,9 +1,9 @@
 ---
 title: "A Cleopatra Extravaganza: Travel to Ancient Egypt"
 date: 2026-02-27T19:00:00.000+00:00
-type: Other
+type: Book Signing
 location: Fitzrovia Chapel, London
-address: Fitzrovia Chapel, 2 Pearson Square, London, W1T 3BF
+address: ""
 time: 7:00 PM
 description: Join Saara El-Arifi at the spectacular Fitzrovia Chapel for a
   launch event worthy of a queen! Listen to Saara in conversation with fellow
