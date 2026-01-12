@@ -165,30 +165,96 @@ async function renderNewsPosts() {
   const postsContainer = document.getElementById('news-posts');
 
   const posts = await loadNews();
+
+  if (posts.length === 0) {
+    if (featuredContainer) {
+      featuredContainer.innerHTML = '';
+    }
+    if (postsContainer) {
+      postsContainer.innerHTML = '<div class="max-w-4xl mx-auto px-6"><div class="text-center py-12 text-gray-400">No news posts yet. Check back soon!</div></div>';
+    }
+    return;
+  }
+
   const featuredPost = posts.find(p => p.featured);
   const regularPosts = posts.filter(p => !p.featured);
 
+  // Render featured post
   if (featuredContainer && featuredPost) {
+    const excerpt = featuredPost.excerpt || '';
+    const truncated = excerpt.length > 150 ? excerpt.substring(0, 150) + '...' : excerpt;
+    const needsExpand = excerpt.length > 150;
+
     featuredContainer.innerHTML = `
       <div class="card p-8 border-accent/30">
         <span class="bestseller-badge inline-block mb-4">Featured</span>
         <h2 class="font-display text-3xl text-white mt-2 mb-4">${featuredPost.title}</h2>
-        <p class="text-gray-400 mb-6">${featuredPost.excerpt || ''}</p>
-        <a href="#" class="btn-primary">Read More</a>
+        <div class="text-gray-400 mb-6">
+          <p id="featured-excerpt" class="news-excerpt">${truncated}</p>
+          ${needsExpand ? `
+            <button onclick="toggleNewsExcerpt('featured')" class="text-accent text-sm hover:text-accent-light transition mt-2">
+              <span id="featured-btn">Read more →</span>
+            </button>
+            <div id="featured-full" class="hidden">${excerpt}</div>
+          ` : ''}
+        </div>
       </div>
     `;
+  } else if (featuredContainer) {
+    featuredContainer.innerHTML = '';
   }
 
+  // Render regular posts
   if (postsContainer) {
-    postsContainer.innerHTML = regularPosts.map(post => `
-      <article class="card p-6">
-        <span class="text-accent text-xs uppercase">${post.category || 'News'}</span>
-        <h3 class="text-xl text-white font-semibold mt-1 mb-2">${post.title}</h3>
-        <p class="text-gray-400 text-sm">${post.excerpt || ''}</p>
-      </article>
-    `).join('');
+    if (regularPosts.length === 0 && !featuredPost) {
+      postsContainer.innerHTML = '<div class="max-w-4xl mx-auto px-6"><div class="text-center py-12 text-gray-400">No news posts yet. Check back soon!</div></div>';
+      return;
+    }
+
+    if (regularPosts.length > 0) {
+      postsContainer.innerHTML = '<div class="max-w-4xl mx-auto px-6"><div class="grid gap-6">' + regularPosts.map((post, index) => {
+        const excerpt = post.excerpt || '';
+        const truncated = excerpt.length > 200 ? excerpt.substring(0, 200) + '...' : excerpt;
+        const needsExpand = excerpt.length > 200;
+
+        return `
+          <article class="card p-6">
+            <span class="text-accent text-xs uppercase">${post.category || 'News'}</span>
+            <h3 class="text-xl text-white font-semibold mt-1 mb-2">${post.title}</h3>
+            <div class="text-gray-400 text-sm">
+              <p id="news-excerpt-${index}">${truncated}</p>
+              ${needsExpand ? `
+                <button onclick="toggleNewsExcerpt(${index})" class="text-accent text-sm hover:text-accent-light transition mt-2">
+                  <span id="news-btn-${index}">Read more →</span>
+                </button>
+                <div id="news-full-${index}" class="hidden">${excerpt}</div>
+              ` : ''}
+            </div>
+          </article>
+        `;
+      }).join('') + '</div></div>';
+    } else {
+      postsContainer.innerHTML = '';
+    }
   }
 }
+
+// Toggle news excerpt expansion
+window.toggleNewsExcerpt = function (index) {
+  const truncatedEl = document.getElementById(index === 'featured' ? 'featured-excerpt' : `news-excerpt-${index}`);
+  const fullEl = document.getElementById(index === 'featured' ? 'featured-full' : `news-full-${index}`);
+  const btnEl = document.getElementById(index === 'featured' ? 'featured-btn' : `news-btn-${index}`);
+
+  if (fullEl.classList.contains('hidden')) {
+    truncatedEl.classList.add('hidden');
+    fullEl.classList.remove('hidden');
+    btnEl.textContent = 'Show less ←';
+  } else {
+    truncatedEl.classList.remove('hidden');
+    fullEl.classList.add('hidden');
+    btnEl.textContent = 'Read more →';
+  }
+};
 
 // Initialize
 if (document.readyState === 'loading') {
