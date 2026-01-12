@@ -99,8 +99,12 @@ async function renderEventsPage() {
     return;
   }
 
-  container.innerHTML = events.map(event => {
+  container.innerHTML = events.map((event, index) => {
     const dateInfo = formatEventDate(event.date);
+    const description = event.description || '';
+    const truncated = description.length > 200 ? description.substring(0, 200) + '...' : description;
+    const needsExpand = description.length > 200;
+
     return `
       <div class="card p-6 md:p-8">
         <div class="flex flex-col md:flex-row md:items-start gap-6">
@@ -111,7 +115,15 @@ async function renderEventsPage() {
           <div class="flex-1">
             <span class="text-xs text-accent uppercase tracking-wider">${event.type || 'Event'}</span>
             <h3 class="text-xl text-white font-semibold mt-1 mb-2">${event.title}</h3>
-            <p class="text-gray-400 mb-4">${event.description || ''}</p>
+            <div class="text-gray-400 mb-4">
+              <p id="desc-${index}" class="event-description">${truncated}</p>
+              ${needsExpand ? `
+                <button onclick="toggleDescription(${index})" class="text-accent text-sm hover:text-accent-light transition mt-2">
+                  <span id="btn-${index}">Read more →</span>
+                </button>
+                <div id="full-desc-${index}" class="hidden">${description}</div>
+              ` : ''}
+            </div>
             <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
               <span class="flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -122,13 +134,30 @@ async function renderEventsPage() {
                 ${event.time}
               </span>` : ''}
             </div>
-            ${event.ticketLink ? `<a href="${event.ticketLink}" class="btn-primary text-sm">Get Tickets</a>` : ''}
+            ${event.ticketLink ? `<a href="${event.ticketLink}" target="_blank" rel="noopener noreferrer" class="btn-primary text-sm">Get Tickets</a>` : ''}
           </div>
         </div>
       </div>
     `;
   }).join('');
 }
+
+// Toggle description expansion
+window.toggleDescription = function (index) {
+  const truncatedEl = document.getElementById(`desc-${index}`);
+  const fullEl = document.getElementById(`full-desc-${index}`);
+  const btnEl = document.getElementById(`btn-${index}`);
+
+  if (fullEl.classList.contains('hidden')) {
+    truncatedEl.classList.add('hidden');
+    fullEl.classList.remove('hidden');
+    btnEl.textContent = 'Show less ←';
+  } else {
+    truncatedEl.classList.remove('hidden');
+    fullEl.classList.add('hidden');
+    btnEl.textContent = 'Read more →';
+  }
+};
 
 // Render news posts
 async function renderNewsPosts() {
