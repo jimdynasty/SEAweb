@@ -8,25 +8,48 @@
 const fs = require('fs');
 const path = require('path');
 
-// Parse markdown frontmatter
+// Parse markdown frontmatter with proper multi-line YAML support
 function parseFrontmatter(text) {
     const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
     if (!match) return null;
 
     const frontmatter = {};
-    const lines = match[1].split('\n');
+    const frontmatterText = match[1];
 
-    lines.forEach(line => {
-        const colonIndex = line.indexOf(':');
-        if (colonIndex > 0) {
-            const key = line.substring(0, colonIndex).trim();
-            let value = line.substring(colonIndex + 1).trim();
-            value = value.replace(/^["']|["']$/g, '');
-            if (value === 'true') value = true;
-            if (value === 'false') value = false;
-            frontmatter[key] = value;
+    let currentKey = null;
+    let currentValue = [];
+
+    frontmatterText.split('\n').forEach(line => {
+        // Check if line starts a new key (no leading whitespace and has colon)
+        if (line.match(/^[a-zA-Z_][a-zA-Z0-9_]*:/) && !line.startsWith(' ')) {
+            // Save previous key-value if exists
+            if (currentKey) {
+                let value = currentValue.join(' ').trim();
+                value = value.replace(/^["']|["']$/g, '');
+                if (value === 'true') value = true;
+                if (value === 'false') value = false;
+                frontmatter[currentKey] = value;
+            }
+
+            // Start new key-value
+            const colonIndex = line.indexOf(':');
+            currentKey = line.substring(0, colonIndex).trim();
+            const firstValue = line.substring(colonIndex + 1).trim();
+            currentValue = firstValue ? [firstValue] : [];
+        } else if (currentKey && line.trim() && line.startsWith('  ')) {
+            // This is a continuation line (indented)
+            currentValue.push(line.trim());
         }
     });
+
+    // Save the last key-value pair
+    if (currentKey) {
+        let value = currentValue.join(' ').trim();
+        value = value.replace(/^["']|["']$/g, '');
+        if (value === 'true') value = true;
+        if (value === 'false') value = false;
+        frontmatter[currentKey] = value;
+    }
 
     frontmatter.content = match[2].trim();
     return frontmatter;
