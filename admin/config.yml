@@ -3,8 +3,8 @@ backend:
   repo: jimdynasty/SEAweb
   branch: main
   site_domain: jimdynasty.github.io # Hostname only
-  base_url: https://seaweb-cms-proxy.vercel.app # Root URL
-  auth_endpoint: api/auth # Explicit Vercel function path
+  base_url: https://seaweb-git-proxy.vercel.app # Custom Internal Proxy
+  auth_endpoint: api/auth # Function path
 
 
 
