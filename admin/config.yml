@@ -2,8 +2,8 @@ backend:
   name: github
   repo: jimdynasty/SEAweb
   branch: main
-  base_url: https://seaweb-cms-proxy.vercel.app # Official Decap Proxy
-  auth_endpoint: auth # Standard endpoint for this proxy
+  base_url: https://seaweb-cms-proxy.vercel.app/api # Vercel functions are at /api
+  auth_endpoint: auth # Resulting path: /api/auth
 
 
 
