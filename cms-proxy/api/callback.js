@@ -71,15 +71,22 @@ module.exports = async (req, res) => {
             }
             window.addEventListener("message", receiveMessage, false);
             
-            // Fallback: send message immediately
-            log("Sending message to: " + origin);
+            // Fallback: send message immediately to ANY origin to fix mismatch issues
+            log("Sending message to generic origin (*)...");
             try {
               window.opener.postMessage(
                 'authorization:' + provider + ':success:' + JSON.stringify(token),
-                origin
+                "*" 
               );
-              log("Credentials sent! You can close this window.");
-              setTimeout(() => window.close(), 2000);
+              log("Credentials sent to *! You can close this window.");
+              document.body.innerHTML += "<p style='color:green; font-weight:bold'>Token sent to main window.</p>";
+              setInterval(() => {
+                  window.opener.postMessage(
+                    'authorization:' + provider + ':success:' + JSON.stringify(token),
+                    "*" 
+                  );
+              }, 1000); // Retry every second just in case
+              
             } catch (err) {
                log("Error sending message: " + err);
             }
