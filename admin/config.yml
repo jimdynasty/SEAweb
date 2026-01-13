@@ -2,9 +2,9 @@ backend:
   name: github
   repo: jimdynasty/SEAweb
   branch: main
-  site_domain: jimdynasty.github.io/SEAweb # Explicitly set correct domain
-  base_url: https://seaweb-cms-proxy.vercel.app # Official Decap Proxy
-  auth_endpoint: auth # Resulting path: /auth
+  site_domain: jimdynasty.github.io # Hostname only
+  base_url: https://seaweb-cms-proxy.vercel.app # Root URL
+  auth_endpoint: api/auth # Explicit Vercel function path
 
 
 
