@@ -2,30 +2,21 @@
 
 ## Accessing the Admin
 
-Once your site is deployed to Netlify, you can manage news and events at:
+You can manage news and events at:
 
 ```
-https://your-site.netlify.app/admin
+https://jimdynasty.github.io/SEAweb/admin/
 ```
 
-For local testing with the backend, run:
-
-```bash
-# Install Netlify CMS proxy server
-npx netlify-cms-proxy-server
-
-# In another terminal, serve the site
-python3 -m http.server 8000
-```
-
-Then visit: http://localhost:8000/admin
+We use **Sveltia CMS**, a modern interface that works directly with your GitHub repository.
 
 ## Managing News Posts
 
 1. Go to `/admin`
-2. Click "News"
-3. Click "New News"
-4. Fill in the form:
+2. Login with GitHub
+3. Click "News"
+4. Click "New News"
+5. Fill in the form:
    - **Title**: Post headline
    - **Publish Date**: When to show the post
    - **Featured**: Check to feature on news page
@@ -35,7 +26,7 @@ Then visit: http://localhost:8000/admin
    - **Featured Image**: Optional cover image
    - **Book Series**: Which series this relates to
 
-5. Click "Publish" or "Save as Draft"
+6. Click "Publish"
 
 ## Managing Events
 
@@ -55,14 +46,8 @@ Then visit: http://localhost:8000/admin
 
 5. Click "Publish"
 
-## Tips
+## How it Works
 
-- Events automatically hide once they're in the past (if "Past Event" is checked)
-- Homepage shows the next 3 upcoming events
-- Featured news posts appear at the top of the news page
-- All content is stored in markdown files in `/content/news/` and `/content/events/`
-- Content is version-controlled with your site code
-
-## No Backend Needed
-
-Netlify CMS works directly with your Git repository. When you publish content through the admin panel, it commits the markdown file to your repository, which triggers a new deployment. No database required!
+- **No Database:** Content is saved as Markdown files in `/content/` directly in your GitHub repo.
+- **Automated Builds:** When you click "Publish", a GitHub Action runs in the background. It takes about **2-3 minutes** for the live site to update.
+- **Hosting:** Free on GitHub Pages.
