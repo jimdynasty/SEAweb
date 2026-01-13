@@ -65,49 +65,51 @@ module.exports = async (req, res) => {
               window.opener.postMessage(
                 'authorization:' + provider + ':success:' + JSON.stringify(token),
                 e.origin
-              );
-              log("Credentials sent to " + e.origin + ". Closing...");
-              setTimeout(() => window.close(), 1000);
-            }
-            window.addEventListener("message", receiveMessage, false);
-            
-            // Verify opener
-            if (!window.opener) {
-                log("CRITICAL ERROR: window.opener is null. The popup lost connection to the CMS.");
-                document.body.innerHTML += "<p style='color:red'>Cannot send token: Browser severed link to CMS.</p>";
-            } else {
-                log("window.opener is VALID.");
-            }
-
-            // Inject RAW values (Fixing the double-JSON bug)
-            const token = "${token}"; 
-            const provider = "${provider}";
-            const origin = "${origin}";
-
-            // Construct standard payload
-            const payload = {
-                token: token,
-                provider: provider
-            };
-            const mess = 'authorization:' + provider + ':success:' + JSON.stringify(payload);
-            
-            // Visual Debug
-            document.body.innerHTML += "<p style='font-size:10px; color:gray'>Final Payload: " + mess + "</p>";
-
-            function sendMessage() {
-                try {
-                    window.opener.postMessage(mess, "*"); 
-                    log("Sent message to *");
-                } catch (err) {
-                    log("Error sending: " + err);
+            try {
+                function log(msg) {
+                    console.log(msg);
+                    document.getElementById('status').innerText = msg;
                 }
+                
+                // Safe Injection
+                const token = ${JSON.stringify(token)};
+                const provider = ${JSON.stringify(provider)};
+                const origin = ${JSON.stringify(origin)};
+                
+                log("Script started. Provider: " + provider);
+
+                // Verify opener
+                if (!window.opener) {
+                    log("CRITICAL ERROR: window.opener is missing.");
+                    return;
+                }
+
+                // Construct standard payload
+                const payload = {
+                    token: token,
+                    provider: provider
+                };
+                
+                const mess = 'authorization:' + provider + ':success:' + JSON.stringify(payload);
+                document.getElementById('debug').innerText = "Payload: " + mess;
+
+                function sendMessage() {
+                    try {
+                        window.opener.postMessage(mess, "*"); 
+                        log("Sent message to *");
+                    } catch (err) {
+                        log("Error sending: " + err);
+                    }
+                }
+                
+                // Send immediately
+                sendMessage();
+                
+                // Send interval
+                setInterval(sendMessage, 1500);
+            } catch (err) {
+                document.getElementById('debug').innerText = "SCRIPT CRASH: " + err.message;
             }
-            
-            // Send immediately
-            sendMessage();
-            
-            // Send interval
-            setInterval(sendMessage, 1500);
           })()
         </script>
       </body>
