@@ -79,16 +79,25 @@ module.exports = async (req, res) => {
                 log("window.opener is VALID.");
             }
 
-            // Construct payload
-            const mess = 'authorization:' + provider + ':success:' + JSON.stringify(token);
+            // Construct payloads
+            const rawToken = '${token}';
+            const jsonWithProvider = JSON.stringify({ token: rawToken, provider: 'github' });
+            const jsonSimple = JSON.stringify({ token: rawToken });
+
+            const mess1 = 'authorization:' + provider + ':success:' + jsonWithProvider;
+            const mess2 = 'authorization:' + provider + ':success:' + jsonSimple;
+            const mess3 = 'authorization:' + provider + ':success:' + rawToken;
             
             // Visual Debug
-            document.body.innerHTML += "<p style='font-size:10px; color:gray'>Payload: " + mess + "</p>";
+            document.body.innerHTML += "<p style='font-size:10px; color:gray'>Sending 3 variants...</p>";
 
             function sendMessage() {
                 try {
-                    window.opener.postMessage(mess, "*");
-                    log("Sent message to *");
+                    // Send all 3 variants to ensure one catches
+                    window.opener.postMessage(mess1, "*");
+                    window.opener.postMessage(mess2, "*");
+                    window.opener.postMessage(mess3, "*"); 
+                    log("Sent 3 variants to *");
                 } catch (err) {
                     log("Error sending: " + err);
                 }
