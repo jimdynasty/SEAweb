@@ -1,11 +1,7 @@
 backend:
-  name: github
-  repo: jimdynasty/SEAweb
+  name: git-gateway
   branch: main
-  base_url: https://github.com # Required for PKCE
-  auth_endpoint: login/oauth/authorize # Required for PKCE
-  pkce: true # Enables serverless auth
-  app_id: Ov23liv0K9nXJAbtXqNa
+
 
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"

@@ -1,0 +1,9 @@
+[build]
+  command = ""  # CRITICAL: Empty command = 0 build credits used
+  publish = "." # Publish root directory
+
+# optimization: cache static assets
+[[headers]]
+  for = "/*.json"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
