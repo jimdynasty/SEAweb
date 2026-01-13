@@ -2,7 +2,7 @@ const { AuthorizationCode } = require('simple-oauth2');
 
 module.exports = async (req, res) => {
   const { host } = req.headers;
-  const { code } = req.query; // Get parameter from the redirected URL
+  const { code } = req.query;
 
   if (!code) {
     return res.status(400).send('Missing code parameter');
@@ -29,12 +29,9 @@ module.exports = async (req, res) => {
     const token = accessToken.token.access_token;
     const provider = 'github';
 
-    let origin = process.env.ORIGIN || '*';
-    if (origin !== '*' && !origin.startsWith('http')) {
-      origin = `https://${origin}`;
-    }
+    res.setHeader('Content-Type', 'text/html');
 
-    // Post message to the opener (CMS window)
+    // Post message to the opener
     const script = `
       <!DOCTYPE html>
       <html>
@@ -42,29 +39,9 @@ module.exports = async (req, res) => {
         <h3>Authentication Successful!</h3>
         <p>Sending credentials to CMS...</p>
         <div id="status">Connecting...</div>
+        <div id="debug" style="color:red; font-size:12px; margin-top:20px;"></div>
         <script>
-          (function() {
-            function log(msg) {
-                console.log(msg);
-                document.getElementById('status').innerText = msg;
-            }
-            
-            const token = ${JSON.stringify({ token, provider: 'github' })};
-            const provider = '${provider}';
-            const origin = "${origin}";
-
-            function receiveMessage(e) {
-              log("Received message from: " + e.origin);
-              
-              if (origin !== "*" && e.origin !== origin) {
-                log("Origin mismatch: expected " + origin + ", got " + e.origin);
-                return;
-              }
-              
-              // Send the token
-              window.opener.postMessage(
-                'authorization:' + provider + ':success:' + JSON.stringify(token),
-                e.origin
+          window.onload = function() {
             try {
                 function log(msg) {
                     console.log(msg);
@@ -74,7 +51,6 @@ module.exports = async (req, res) => {
                 // Safe Injection
                 const token = ${JSON.stringify(token)};
                 const provider = ${JSON.stringify(provider)};
-                const origin = ${JSON.stringify(origin)};
                 
                 log("Script started. Provider: " + provider);
 
@@ -84,7 +60,7 @@ module.exports = async (req, res) => {
                     return;
                 }
 
-                // Construct standard payload
+                // Construct payload
                 const payload = {
                     token: token,
                     provider: provider
@@ -110,7 +86,7 @@ module.exports = async (req, res) => {
             } catch (err) {
                 document.getElementById('debug').innerText = "SCRIPT CRASH: " + err.message;
             }
-          })()
+          };
         </script>
       </body>
       </html>
