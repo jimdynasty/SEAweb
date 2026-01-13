@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
                 document.getElementById('status').innerText = msg;
             }
             
-            const token = ${JSON.stringify({ token })};
+            const token = ${JSON.stringify({ token, provider: 'github' })};
             const provider = '${provider}';
             const origin = "${origin}";
 
