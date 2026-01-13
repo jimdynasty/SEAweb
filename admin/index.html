@@ -11,6 +11,13 @@
 <body>
     <!-- This div is required for Decap CMS to mount -->
     <div id="nc-root"></div>
+    <script>
+        window.addEventListener("message", (event) => {
+            console.log("Global Message Listener Received:", event);
+            console.log("Origin:", event.origin);
+            console.log("Data:", event.data);
+        });
+    </script>
     <!-- Include the Decap CMS script -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
