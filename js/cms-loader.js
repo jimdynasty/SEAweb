@@ -1,78 +1,5 @@
-// CMS Content Loader - Client-side markdown parsing
-// Fetches markdown files directly, no build step needed!
-
-// Parse markdown frontmatter
-function parseFrontmatter(text) {
-  const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!match) return null;
-
-  const frontmatter = {};
-  const frontmatterText = match[1];
-
-  let currentKey = null;
-  let currentValue = [];
-
-  frontmatterText.split('\n').forEach(line => {
-    if (line.match(/^[a-zA-Z_][a-zA-Z0-9_]*:/) && !line.startsWith(' ')) {
-      if (currentKey) {
-        let value = currentValue.join(' ').trim();
-        value = value.replace(/^["']|["']$/g, '');
-        if (value === 'true') value = true;
-        if (value === 'false') value = false;
-        frontmatter[currentKey] = value;
-      }
-
-      const colonIndex = line.indexOf(':');
-      currentKey = line.substring(0, colonIndex).trim();
-      const firstValue = line.substring(colonIndex + 1).trim();
-      currentValue = firstValue ? [firstValue] : [];
-    } else if (currentKey && line.trim() && line.startsWith('  ')) {
-      currentValue.push(line.trim());
-    }
-  });
-
-  if (currentKey) {
-    let value = currentValue.join(' ').trim();
-    value = value.replace(/^["']|["']$/g, '');
-    if (value === 'true') value = true;
-    if (value === 'false') value = false;
-    frontmatter[currentKey] = value;
-  }
-
-  frontmatter.content = match[2].trim();
-  return frontmatter;
-}
-
-// Fetch list of markdown files from a directory
-async function fetchMarkdownFiles(folder) {
-  try {
-    // Fetch the directory listing from GitHub  
-    const response = await fetch(`https://api.github.com/repos/jimdynasty/SEAweb/contents/content/${folder}`);
-    if (!response.ok) return [];
-
-    const files = await response.json();
-    const markdownFiles = files.filter(f => f.name.endsWith('.md'));
-
-    // Fetch and parse each markdown file
-    const results = [];
-    for (const file of markdownFiles) {
-      try {
-        const contentResponse = await fetch(file.download_url);
-        if (contentResponse.ok) {
-          const text = await contentResponse.text();
-          const parsed = parseFrontmatter(text);
-          if (parsed) results.push(parsed);
-        }
-      } catch (error) {
-        console.error(`Error loading ${file.name}:`, error);
-      }
-    }
-    return results;
-  } catch (error) {
-    console.error(`Error fetching ${folder}:`, error);
-    return [];
-  }
-}
+// CMS Content Loader - Loads from static JSON files
+// JSON files are generated when content changes
 
 // Format date
 function formatDate(dateString) {
@@ -94,19 +21,44 @@ function formatEventDate(dateString) {
   };
 }
 
-// Load events
+// Load events from static JSON
 async function loadEvents() {
-  const events = await fetchMarkdownFiles('events');
-  const now = new Date();
-  return events
-    .filter(event => !event.past && new Date(event.date) >= now)
-    .sort((a, b) => new Date(a.date) - new Date(b.date));
+  try {
+    // Determine base URL: use GitHub Pages path if on github.io, else root
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const basePath = isGitHubPages ? '/SEAweb' : '';
+
+    const response = await fetch(`${basePath}/events.json?t=${new Date().getTime()}`); // Add timestamp to prevent caching
+    if (!response.ok) return [];
+    const events = await response.json();
+
+    // Filter out past events and sort by date
+    const now = new Date();
+    return events
+      .filter(event => (event.past !== true && event.past !== 'true') && new Date(event.date) >= now)
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+  } catch (error) {
+    console.error('Error loading events:', error);
+    return [];
+  }
 }
 
-// Load news
+// Load news from static JSON
 async function loadNews() {
-  const posts = await fetchMarkdownFiles('news');
-  return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  try {
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const basePath = isGitHubPages ? '/SEAweb' : '';
+
+    const response = await fetch(`${basePath}/news.json?t=${new Date().getTime()}`);
+    if (!response.ok) return [];
+    const posts = await response.json();
+
+    // Sort by date, newest first
+    return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  } catch (error) {
+    console.error('Error loading news:', error);
+    return [];
+  }
 }
 
 // Render events on homepage

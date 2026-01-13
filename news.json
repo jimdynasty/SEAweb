@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Test news A",
+    "date": "2025-01-10T10:00:00.000Z",
+    "featured": true,
+    "category": "Tour",
+    "excerpt": "The Cursebound UK tour is HERE! Grab your tickets for London, Manchester, and Edinburgh stops. Limited availability — don't miss out on meeting Saara and getting your books signed!",
+    "series": "Faebound",
+    "body": "The Cursebound UK tour is officially happening, and tickets are now available!\n\n## Tour Dates\n\n- **London** - February 15, 2025 at Waterstones Piccadilly\n- **Manchester** - February 22, 2025 at Waterstones Deansgate  \n- **Edinburgh** - March 1, 2025 at Waterstones West End\n\nEach event will include:\n- Book signing\n- Q&A session\n- Exclusive behind-the-scenes stories about the Faebound series\n- Photo opportunities\n\nTickets are limited and selling fast. Visit the [Events page](/events.html) for ticket links!\n\nSee you on tour! 💜✨",
+    "_filename": "2025-01-10-cursebound-tour.md"
+  },
+  {
+    "title": "Test news B",
+    "date": "2025-01-10T10:00:00.000Z",
+    "featured": false,
+    "category": "Tour",
+    "excerpt": "The Cursebound UK tour is HERE! Grab your tickets for London, Manchester, and Edinburgh stops. Limited availability — don't miss out on meeting Saara and getting your books signed!",
+    "series": "Faebound",
+    "body": "The Cursebound UK tour is officially happening, and tickets are now available!\n\n## Tour Dates\n\n- **London** - February 15, 2025 at Waterstones Piccadilly\n- **Manchester** - February 22, 2025 at Waterstones Deansgate  \n- **Edinburgh** - March 1, 2025 at Waterstones West End\n\nEach event will include:\n- Book signing\n- Q&A session\n- Exclusive behind-the-scenes stories about the Faebound series\n- Photo opportunities\n\nTickets are limited and selling fast. Visit the [Events page](/events.html) for ticket links!\n\nSee you on tour! 💜✨",
+    "_filename": "2025-01-10-test-news-b.md"
+  }
+]
