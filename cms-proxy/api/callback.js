@@ -71,25 +71,34 @@ module.exports = async (req, res) => {
             }
             window.addEventListener("message", receiveMessage, false);
             
-            // Fallback: send message immediately to ANY origin to fix mismatch issues
-            log("Sending message to generic origin (*)...");
-            try {
-              window.opener.postMessage(
-                'authorization:' + provider + ':success:' + JSON.stringify(token),
-                "*" 
-              );
-              log("Credentials sent to *! You can close this window.");
-              document.body.innerHTML += "<p style='color:green; font-weight:bold'>Token sent to main window.</p>";
-              setInterval(() => {
-                  window.opener.postMessage(
-                    'authorization:' + provider + ':success:' + JSON.stringify(token),
-                    "*" 
-                  );
-              }, 1000); // Retry every second just in case
-              
-            } catch (err) {
-               log("Error sending message: " + err);
+            // Verify opener
+            if (!window.opener) {
+                log("CRITICAL ERROR: window.opener is null. The popup lost connection to the CMS.");
+                document.body.innerHTML += "<p style='color:red'>Cannot send token: Browser severed link to CMS.</p>";
+            } else {
+                log("window.opener is VALID.");
             }
+
+            // Construct payload
+            const mess = 'authorization:' + provider + ':success:' + JSON.stringify(token);
+            
+            // Visual Debug
+            document.body.innerHTML += "<p style='font-size:10px; color:gray'>Payload: " + mess + "</p>";
+
+            function sendMessage() {
+                try {
+                    window.opener.postMessage(mess, "*");
+                    log("Sent message to *");
+                } catch (err) {
+                    log("Error sending: " + err);
+                }
+            }
+            
+            // Send immediately
+            sendMessage();
+            
+            // Send interval
+            setInterval(sendMessage, 1500);
           })()
         </script>
       </body>
