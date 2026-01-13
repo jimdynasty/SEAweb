@@ -35,31 +35,17 @@ module.exports = async (req, res) => {
     const script = `
       <!DOCTYPE html>
       <html>
-      <body style="font-family: sans-serif; text-align: center; padding: 20px;">
-        <h3>Authentication Successful!</h3>
-        <p>Sending credentials to CMS...</p>
-        <div id="status">Connecting...</div>
-        <div id="debug" style="color:red; font-size:12px; margin-top:20px;"></div>
+      <body style="font-family: sans-serif; text-align: center; padding: 40px; color: #333;">
+        <h3 style="color: #2da44e;">Authentication Successful!</h3>
+        <p>You have successfully logged in with GitHub.</p>
+        <p style="font-size: 14px; color: #666;">This window should close automatically...</p>
         <script>
           window.onload = function() {
             try {
-                function log(msg) {
-                    console.log(msg);
-                    document.getElementById('status').innerText = msg;
-                }
-                
                 // Safe Injection
                 const token = ${JSON.stringify(token)};
                 const provider = ${JSON.stringify(provider)};
                 
-                log("Script started. Provider: " + provider);
-
-                // Verify opener
-                if (!window.opener) {
-                    log("CRITICAL ERROR: window.opener is missing.");
-                    return;
-                }
-
                 // Construct payload
                 const payload = {
                     token: token,
@@ -67,24 +53,20 @@ module.exports = async (req, res) => {
                 };
                 
                 const mess = 'authorization:' + provider + ':success:' + JSON.stringify(payload);
-                document.getElementById('debug').innerText = "Payload: " + mess;
 
                 function sendMessage() {
-                    try {
+                    if (window.opener) {
                         window.opener.postMessage(mess, "*"); 
-                        log("Sent message to *");
-                    } catch (err) {
-                        log("Error sending: " + err);
                     }
                 }
                 
                 // Send immediately
                 sendMessage();
                 
-                // Send interval
+                // Retry every 1.5s in case the parent wasn't ready
                 setInterval(sendMessage, 1500);
             } catch (err) {
-                document.getElementById('debug').innerText = "SCRIPT CRASH: " + err.message;
+                console.error("Auth Error:", err);
             }
           };
         </script>
