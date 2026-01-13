@@ -151,11 +151,16 @@
             <h2 class="font-display text-3xl text-white text-center mb-4">Send a Message</h2>
             <p class="text-gray-400 text-center mb-8">To contact me, Pudding, or Noodle, use the form below.</p>
 
-            <form class="space-y-6" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                <!-- Hidden field for spam protection -->
-                <p class="hidden">
-                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                </p>
+            <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+                <!-- Web3Forms Access Key -->
+                <input type="hidden" name="access_key" value="f526c4ea-5f88-4476-b5de-c16fdf5f0cef">
+
+                <!-- Spam Protection -->
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                <!-- Redirect after submission -->
+                <input type="hidden" name="redirect"
+                    value="https://jimdynasty.github.io/SEAweb/contact.html?success=true">
 
                 <!-- Name -->
                 <div>
