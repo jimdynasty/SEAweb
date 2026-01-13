@@ -2,8 +2,8 @@ backend:
   name: github
   repo: jimdynasty/SEAweb
   branch: main
-  base_url: https://INSERT_YOUR_VERCEL_URL.vercel.app # We will update this
-  # auth_endpoint: auth # Default for the proxy
+  base_url: https://seaweb-cms-proxy.vercel.app # Your Vercel Proxy
+
 
 
 
