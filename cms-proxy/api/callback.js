@@ -79,11 +79,20 @@ module.exports = async (req, res) => {
                 log("window.opener is VALID.");
             }
 
-            // Standard Payload (Matches ublabs implementation)
-            const mess = 'authorization:' + provider + ':success:' + JSON.stringify({ token, provider });
+            // Inject RAW values (Fixing the double-JSON bug)
+            const token = "${token}"; 
+            const provider = "${provider}";
+            const origin = "${origin}";
+
+            // Construct standard payload
+            const payload = {
+                token: token,
+                provider: provider
+            };
+            const mess = 'authorization:' + provider + ':success:' + JSON.stringify(payload);
             
             // Visual Debug
-            document.body.innerHTML += "<p style='font-size:10px; color:gray'>Sending Standard Payload: " + mess + "</p>";
+            document.body.innerHTML += "<p style='font-size:10px; color:gray'>Final Payload: " + mess + "</p>";
 
             function sendMessage() {
                 try {
