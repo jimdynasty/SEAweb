@@ -38,19 +38,7 @@ reveal(); // Run on page load
 // Header scroll effect removed for homepage transparency
 
 
-// Newsletter form handling (placeholder - connect to actual service)
-const newsletterForm = document.querySelector('form');
-if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const email = this.querySelector('input[type="email"]').value;
-
-        // TODO: Connect to newsletter service (Mailerlite, etc.)
-        // For now, show a success message
-        alert('Thanks for subscribing! (This is a demo - connect to your newsletter service)');
-        this.reset();
-    });
-}
+// Newsletter form handling removed to allow Web3Forms contact submission
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

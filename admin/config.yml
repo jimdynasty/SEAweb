@@ -2,6 +2,10 @@ backend:
   name: github
   repo: jimdynasty/SEAweb
   branch: main
+  base_url: https://github.com # Required for PKCE
+  auth_endpoint: login/oauth/authorize # Required for PKCE
+  pkce: true # Enables serverless auth
+  app_id: YOUR_GITHUB_CLIENT_ID # Replace with your Client ID
 
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
