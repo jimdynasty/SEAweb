@@ -8,28 +8,46 @@
     <title>Content Manager - Saara El-Arifi</title>
 </head>
 
-<!-- This div is required for the CMS to mount correctly -->
-<div id="nc-root"></div>
+<body>
 
-<!-- OAUTH RELAY SCRIPT: Bypasses strict origin checks by echoing valid tokens as self-origin messages -->
-<script>
-    window.addEventListener("message", (event) => {
-        // 1. Ignore messages from self (prevent infinite loops)
-        if (event.origin === window.location.origin) return;
+    <!-- This div is required for the CMS to mount correctly -->
+    <div id="nc-root"></div>
 
-        // 2. Filter for our specific GitHub OAuth success message
-        if (typeof event.data === 'string' && event.data.startsWith('authorization:github:success:')) {
-            console.log("[Relay] Received valid token from " + event.origin);
-            console.log("[Relay] Re-broadcasting as same-origin message...");
+    <!-- OAUTH RELAY SCRIPT: Bypasses strict origin checks by echoing valid tokens as self-origin messages -->
+    <script>
+        window.addEventListener("message", (event) => {
+            // 1. Ignore messages from self (prevent infinite loops)
+            if (event.origin === window.location.origin) return;
 
-            // 3. Re-post the message to ourselves, but appearing as "internal"
-            window.postMessage(event.data, window.location.origin);
-        }
-    });
-</script>
+            // 2. Filter for our specific GitHub OAuth success message
+            const data = event.data;
+            if (typeof data === 'string' && data.startsWith('authorization:github:success:')) {
+                console.log("[Relay] Received valid token from " + event.origin);
 
-<!-- Include the Decap CMS script via jsDelivr (Alternate CDN) -->
-<script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+                // Parse the payload to get raw token
+                const rawPayload = data.replace('authorization:github:success:', '');
+                let token = rawPayload;
+                try {
+                    const json = JSON.parse(rawPayload);
+                    token = json.token;
+                } catch (e) { }
+
+                console.log("[Relay] Broadcasting 3 variants to self (" + window.location.origin + ")...");
+
+                // Variant 1: The original JSON payload
+                window.postMessage(data, window.location.origin);
+
+                // Variant 2: Raw Token string (Common legacy format)
+                window.postMessage('authorization:github:success:' + token, window.location.origin);
+
+                // Variant 3: JSON with duplicate provider
+                window.postMessage('authorization:github:success:' + JSON.stringify({ token: token, provider: 'github' }), window.location.origin);
+            }
+        });
+    </script>
+
+    <!-- Include the Decap CMS script via jsDelivr (Alternate CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.1.2/dist/decap-cms.js"></script>
 </body>
 
 </html>
