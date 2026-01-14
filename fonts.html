@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Selection | Saara El-Arifi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'slate-blue': '#1e293b',
+                        'slate-dark': '#0f172a',
+                        'slate-darker': '#020617',
+                        'accent': '#e91e8c',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts to Compare (Original + New Options) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Cormorant+SC:wght@400;700&family=Italiana&family=Marcellus&family=Pinyon+Script&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f7fafc;
+            font-family: sans-serif;
+        }
+
+        .font-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .font-name {
+            color: #94a3b8;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .preview-h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .preview-h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #e91e8c;
+        }
+
+        .preview-body {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            max-width: 600px;
+        }
+
+        .preview-caps {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 1rem;
+            display: block;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body class="p-8 md:p-16">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8 text-white">Font Selection Options</h1>
+        <p class="mb-12 text-gray-400">Please review the options below. Showing Title case and UPPERCASE examples.</p>
+
+        <!-- Option 1: Cinzel (Current) -->
+        <div class="font-card">
+            <span class="font-name">Option 1: Cinzel (Current) - Classic Fantasy</span>
+            <div style="font-family: 'Cinzel', serif;">
+                <div class="preview-h1">Saara El-Arifi</div>
+                <div class="preview-h2">The Ending Fire</div>
+                <div class="preview-caps">THE FINAL STRIFE • CLEOPATRA • FAEBOUND</div>
+            </div>
+        </div>
+
+        <!-- Option 2: Cinzel Decorative -->
+        <div class="font-card">
+            <span class="font-name">Option 2: Cinzel Decorative - More Ornate</span>
+            <div style="font-family: 'Cinzel Decorative', serif;">
+                <div class="preview-h1">Saara El-Arifi</div>
+                <div class="preview-h2">The Ending Fire</div>
+                <div class="preview-caps">THE FINAL STRIFE • CLEOPATRA • FAEBOUND</div>
+            </div>
+        </div>
+
+        <!-- Option 3: Pinyon Script -->
+        <div class="font-card" style="border-color: #e91e8c;">
+            <span class="font-name text-accent">Option 3: Pinyon Script - Elegant & Magical (Matches Logo Style?)</span>
+            <div style="font-family: 'Pinyon Script', cursive;">
+                <div class="preview-h1" style="font-size: 4rem;">Saara El-Arifi</div>
+                <div class="preview-h2">The Ending Fire</div>
+                <div class="preview-caps" style="font-family: 'Cinzel', serif;">(Uppercase not recommended for Script)
+                </div>
+            </div>
+        </div>
+
+        <!-- Option 4: Italiana -->
+        <div class="font-card">
+            <span class="font-name">Option 4: Italiana - Sleek & Modern Roman</span>
+            <div style="font-family: 'Italiana', serif;">
+                <div class="preview-h1">Saara El-Arifi</div>
+                <div class="preview-h2">The Ending Fire</div>
+                <div class="preview-caps">THE FINAL STRIFE • CLEOPATRA • FAEBOUND</div>
+            </div>
+        </div>
+
+        <!-- Option 5: Cormorant SC -->
+        <div class="font-card">
+            <span class="font-name">Option 5: Cormorant SC - Sharp & Literary</span>
+            <div style="font-family: 'Cormorant SC', serif;">
+                <div class="preview-h1">Saara El-Arifi</div>
+                <div class="preview-h2">The Ending Fire</div>
+                <div class="preview-caps">THE FINAL STRIFE • CLEOPATRA • FAEBOUND</div>
+            </div>
+        </div>
+
+        <!-- Option 6: Marcellus -->
+        <div class="font-card">
+            <span class="font-name">Option 6: Marcellus - Minimalist Clarity</span>
+            <div style="font-family: 'Marcellus', serif;">
+                <div class="preview-h1">Saara El-Arifi</div>
+                <div class="preview-h2">The Ending Fire</div>
+                <div class="preview-caps">THE FINAL STRIFE • CLEOPATRA • FAEBOUND</div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

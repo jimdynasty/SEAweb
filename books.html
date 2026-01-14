@@ -64,16 +64,13 @@
 
     <!-- Header -->
     <header class="absolute top-0 left-0 right-0 z-50">
-        <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="index.html" class="flex-shrink-0">
-                <img src="assets/images/authorlogo.png" alt="Saara El-Arifi" class="h-12 logo-white">
-            </a>
-            <div class="nav-desktop hidden md:flex items-center gap-8">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="books.html" class="nav-link text-white">Books</a>
-                <a href="events.html" class="nav-link">Events</a>
-                <a href="news.html" class="nav-link">News</a>
-                <a href="contact.html" class="nav-link">Contact</a>
+        <nav class="max-w-7xl mx-auto px-16 lg:px-24 py-12 flex items-center justify-end">
+            <!-- Desktop Navigation (right-aligned) -->
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="books.html" class="nav-link text-white">Books</a>
+            <a href="events.html" class="nav-link">Events</a>
+            <a href="news.html" class="nav-link">News</a>
+            <a href="contact.html" class="nav-link">Contact</a>
             </div>
             <div class="hamburger md:hidden" onclick="toggleMobileMenu()">
                 <span></span><span></span><span></span>
@@ -93,7 +90,13 @@
 
     <!-- Page Header -->
     <section class="pt-32 pb-16 relative">
-        <div class="max-w-7xl mx-auto px-6 text-center">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 text-center">
+            <!-- Large Author Logo (Consistent with Homepage) -->
+            <div class="relative z-40 -mt-12 mb-8 flex justify-center md:justify-start">
+                <img src="assets/images/authorlogo.png" alt="Saara El-Arifi"
+                    class="h-32 md:h-48 w-auto object-contain logo-white">
+            </div>
+
             <h1 class="font-display text-5xl md:text-6xl text-white mb-4">My Books</h1>
             <p class="text-gray-400 text-xl max-w-2xl mx-auto">Epic tales of magic, rebellion, and destiny inspired by
                 West African and Arabian mythology.</p>
@@ -116,14 +119,18 @@
                     </div>
                     <div>
                         <h2 class="font-display text-4xl text-white mb-6">Cleopatra</h2>
-                        <blockquote class="text-xl text-gray-300 italic mb-6 border-l-4 border-accent pl-6">
-                            "You know my name. But you do not know me. Your historians call me seductress, but I was
-                            ever in love's thrall. Your playwrights speak of witchcraft, but my talents came from the
-                            gods themselves. Your poets sing of my bloodlust, but I was always protecting my children."
+                        <blockquote class="text-xl text-gray-300 mb-6 border-l-4 border-accent pl-6 space-y-2">
+                            <p>You know my name. But you do not know me.</p>
+                            <p>Your historians call me seductress, but I was ever in love's thrall.</p>
+                            <p>Your playwrights speak of witchcraft, but my talents came from the gods themselves.
+                            </p>
+                            <p>Your poets sing of my bloodlust, but I was always protecting my children.</p>
                         </blockquote>
-                        <p class="text-gray-400 mb-6">From the #1 bestselling author of FAEBOUND and THE FINAL STRIFE,
+                        <p class="text-gray-400 mb-6">From the #1 bestselling author of FAEBOUND and THE FINAL
+                            STRIFE,
                             this epic and groundbreaking new novel shows us Cleopatra on her own terms.</p>
-                        <p class="text-white font-semibold mb-8">This is not the story of how I died. But how I lived.
+                        <p class="text-white font-semibold mb-8">This is not the story of how I died. But how I
+                            lived.
                         </p>
 
                         <h4 class="text-white font-semibold mb-4">Buy Now:</h4>
