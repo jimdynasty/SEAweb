@@ -11,8 +11,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <!-- Open Graph / Facebook -->
@@ -45,7 +44,7 @@
                         'accent-light': '#f472b6',
                     },
                     fontFamily: {
-                        'display': ['Cinzel', 'serif'],
+                        'display': ['Italiana', 'serif'],
                         'body': ['Inter', 'sans-serif'],
                     }
                 }
@@ -62,18 +61,23 @@
     <div class="bg-pattern"></div>
     <div class="bg-overlay"></div>
 
-    <!-- Header -->
+    <!-- Header - Transparent, no background -->
     <header class="absolute top-0 left-0 right-0 z-50">
-        <nav class="max-w-7xl mx-auto px-16 lg:px-24 py-12 flex items-center justify-end">
-            <!-- Desktop Navigation (right-aligned) -->
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="books.html" class="nav-link text-white">Books</a>
-            <a href="events.html" class="nav-link">Events</a>
-            <a href="news.html" class="nav-link">News</a>
-            <a href="contact.html" class="nav-link">Contact</a>
+        <nav class="max-w-7xl mx-auto px-16 lg:px-24 py-32 flex items-center justify-end">
+            <!-- Desktop Navigation (right-aligned, vertically centered with logo) -->
+            <div class="nav-desktop hidden md:flex items-center gap-8">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="books.html" class="nav-link text-white">Books</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="contact.html" class="nav-link">Contact</a>
             </div>
-            <div class="hamburger md:hidden" onclick="toggleMobileMenu()">
-                <span></span><span></span><span></span>
+
+            <!-- Mobile Menu Button -->
+            <div class="hamburger md:hidden ml-auto" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </nav>
     </header>
@@ -89,12 +93,12 @@
     </div>
 
     <!-- Page Header -->
-    <section class="pt-32 pb-16 relative">
+    <section class="pt-12 pb-16 relative">
         <div class="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 text-center">
-            <!-- Large Author Logo (Consistent with Homepage) -->
-            <div class="relative z-40 -mt-12 mb-8 flex justify-center md:justify-start">
+            <!-- Large Logo overlapping navbar -->
+            <div class="relative z-40 -mt-4 mb-8 md:mb-12 flex justify-center md:justify-start">
                 <img src="assets/images/authorlogo.png" alt="Saara El-Arifi"
-                    class="h-32 md:h-48 w-auto object-contain logo-white">
+                    class="h-40 md:h-64 lg:h-72 w-auto max-w-full object-contain logo-white">
             </div>
 
             <h1 class="font-display text-5xl md:text-6xl text-white mb-4">My Books</h1>
