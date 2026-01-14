@@ -131,29 +131,31 @@ async function renderEventsPage() {
       <div class="card p-4 md:p-6">
         <div class="flex flex-row items-center gap-3 md:gap-6">
           
-          <!-- Column 1: Date & Location -->
-          <div class="flex flex-col items-center text-center min-w-[80px] md:min-w-[140px] flex-shrink-0">
-            <div class="bg-accent/20 rounded-xl p-2 md:p-3 text-center w-full mb-2">
+          <!-- Column 1: Date Only -->
+          <div class="flex flex-col items-center text-center min-w-[60px] md:min-w-[100px] flex-shrink-0">
+            <div class="bg-accent/20 rounded-xl p-2 md:p-3 text-center w-full">
               <p class="text-accent font-bold text-xl md:text-3xl leading-none">${dateInfo.day}</p>
               <p class="text-accent-light text-[10px] md:text-sm uppercase font-semibold">${dateInfo.month} ${dateInfo.year}</p>
             </div>
-            <div class="text-gray-400 text-[10px] md:text-sm space-y-1">
-               <div class="flex items-center gap-1 md:gap-2 justify-center">
-                  <svg class="w-3 h-3 md:w-4 md:h-4 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                  <span class="truncate max-w-[80px] md:max-w-none">${event.location}</span>
-               </div>
-               ${event.time ? `
-               <div class="flex items-center gap-1 md:gap-2 justify-center">
-                  <svg class="w-3 h-3 md:w-4 md:h-4 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  <span>${event.time}</span>
-               </div>` : ''}
-            </div>
           </div>
 
-          <!-- Column 2: Title & Description -->
+          <!-- Column 2: Title & Location/Time & Description -->
           <div class="flex-1 text-left min-w-0">
             <span class="text-[10px] md:text-xs text-accent uppercase tracking-wider mb-1 block">${event.type || 'Event'}</span>
             <h3 class="text-base md:text-xl text-white font-semibold mb-1 md:mb-2 leading-tight">${event.title}</h3>
+            
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-gray-400 text-[11px] md:text-sm mb-1.5 md:mb-3">
+               <div class="flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  <span class="truncate">${event.location}</span>
+               </div>
+               ${event.time ? `
+               <div class="flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <span>${event.time}</span>
+               </div>` : ''}
+            </div>
+
             ${description ? `<p class="text-gray-400 text-sm hidden md:block max-w-2xl">${description}</p>` : ''}
           </div>
 
