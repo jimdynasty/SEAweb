@@ -219,10 +219,15 @@ async function renderNewsPosts() {
             <div class="text-gray-400">
               <div id="featured-excerpt" class="news-excerpt prose prose-invert">${truncated}</div>
               ${needsExpand ? `
-                <button onclick="toggleNewsExcerpt('featured')" class="btn-primary mt-4">
-                  <span id="featured-btn">Read more</span>
+                <button id="featured-btn-readmore" onclick="toggleNewsExcerpt('featured')" class="btn-primary mt-4">
+                  <span>Read more</span>
                 </button>
-                <div id="featured-full" class="hidden prose prose-invert max-w-none mt-4 text-left">${fullContent}</div>
+                <div id="featured-full" class="hidden mt-4 text-left">
+                  <div class="prose prose-invert max-w-none mb-6">${fullContent}</div>
+                  <button onclick="toggleNewsExcerpt('featured')" class="btn-primary">
+                    <span>Close</span>
+                  </button>
+                </div>
               ` : ''}
             </div>
           </div>
@@ -262,10 +267,15 @@ async function renderNewsPosts() {
                 <div class="text-gray-400 text-sm">
                   <div id="news-excerpt-${index}" class="prose prose-invert">${truncated}</div>
                   ${needsExpand ? `
-                    <button onclick="toggleNewsExcerpt(${index})" class="btn-primary mt-4 text-sm">
-                      <span id="news-btn-${index}">Read more</span>
+                    <button id="news-btn-readmore-${index}" onclick="toggleNewsExcerpt(${index})" class="btn-primary mt-4 text-sm">
+                      <span>Read more</span>
                     </button>
-                    <div id="news-full-${index}" class="hidden prose prose-invert max-w-none mt-4 text-left">${fullContent}</div>
+                    <div id="news-full-${index}" class="hidden mt-4 text-left">
+                      <div class="prose prose-invert max-w-none mb-4">${fullContent}</div>
+                      <button onclick="toggleNewsExcerpt(${index})" class="btn-primary text-sm">
+                        <span>Close</span>
+                      </button>
+                    </div>
                   ` : ''}
                 </div>
               </div>
@@ -286,18 +296,20 @@ async function renderNewsPosts() {
 
 // Toggle news excerpt expansion
 window.toggleNewsExcerpt = function (index) {
-  const truncatedEl = document.getElementById(index === 'featured' ? 'featured-excerpt' : `news-excerpt-${index}`);
+  const excerptEl = document.getElementById(index === 'featured' ? 'featured-excerpt' : `news-excerpt-${index}`);
   const fullEl = document.getElementById(index === 'featured' ? 'featured-full' : `news-full-${index}`);
-  const btnEl = document.getElementById(index === 'featured' ? 'featured-btn' : `news-btn-${index}`);
+  const readMoreBtn = document.getElementById(index === 'featured' ? 'featured-btn-readmore' : `news-btn-readmore-${index}`);
 
   if (fullEl.classList.contains('hidden')) {
-    truncatedEl.classList.add('hidden');
+    // Expand
+    excerptEl.classList.add('hidden');
+    readMoreBtn.classList.add('hidden'); // Hide read more button
     fullEl.classList.remove('hidden');
-    btnEl.textContent = 'Show less';
   } else {
-    truncatedEl.classList.remove('hidden');
+    // Collapse
+    excerptEl.classList.remove('hidden');
+    readMoreBtn.classList.remove('hidden'); // Show read more button
     fullEl.classList.add('hidden');
-    btnEl.textContent = 'Read more';
   }
 };
 
