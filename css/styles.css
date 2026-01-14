@@ -70,7 +70,8 @@ body {
 
 /* Typography */
 .font-display {
-  font-family: 'Cinzel', serif;
+  font-family: 'Italiana', serif;
+  text-transform: uppercase;
 }
 
 /* Logo - inverted to white */
