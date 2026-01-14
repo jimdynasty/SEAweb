@@ -5,8 +5,9 @@ A dark fantasy-themed author website for Saara El-Arifi, featuring book showcase
 ## Tech Stack
 
 - **Frontend**: HTML, CSS (Tailwind CSS via CDN), Vanilla JavaScript
-- **CMS**: Netlify CMS for News and Events management
-- **Hosting**: Netlify (recommended)
+- **CMS**: **Sveltia CMS** (Git-based, no backend required) for News and Events
+- **Hosting**: **GitHub Pages**
+- **Forms**: **Web3Forms** (Contact Form)
 - **Local Development**: Python HTTP server
 
 ## Local Development
@@ -23,10 +24,10 @@ python3 -m http.server 8000
 ### 🔴 Critical (Must Complete Before Launch)
 
 #### 1. Contact Form Backend
-- [ ] Choose a form service (Netlify Forms, Formspree, etc.)
-- [ ] Update `contact.html` form action attribute
-- [ ] Configure form handler for email notifications
-- [ ] Test form submission and delivery
+- [x] Choose a form service (Web3Forms selected)
+- [x] Update `contact.html` form action attribute
+- [x] Configure form handler for email notifications
+- [x] Test form submission and delivery (verified with `?success=true` logic)
 
 #### 2. Newsletter Integration
 - [ ] Set up newsletter service (Mailchimp, Mailerlite, etc.)
@@ -75,41 +76,27 @@ python3 -m http.server 8000
 - [ ] Add JSON-LD structured data
 - [ ] Set up monitoring/uptime alerts
 
-## Deployment to Netlify
+## Deployment to GitHub Pages
 
 ### Step 1: Prepare Repository
-```bash
-# Initialize git (if not already done)
-git init
-git add .
-git commit -m "Initial commit"
+The site is already configured for GitHub Pages. Any push to `main` triggers a build (via GitHub Actions) that updates the static content.
 
-# Push to GitHub
-git remote add origin https://github.com/yourusername/saaraelarifi-website.git
-git branch -M main
-git push -u origin main
+```bash
+# Push changes to deploy
+git add .
+git commit -m "Update site content"
+git push origin main
 ```
 
-### Step 2: Deploy to Netlify
-1. Log in to [Netlify](https://netlify.com)
-2. Click "Add new site" → "Import an existing project"
-3. Connect to your GitHub repository
-4. Configure build settings:
-   - **Build command**: (leave empty - static site)
-   - **Publish directory**: `.` (root)
-5. Click "Deploy site"
+### Step 2: CMS Access
+- Access the CMS at `https://jimdynasty.github.io/SEAweb/admin/`
+- Login with GitHub via the configured proxy.
 
-### Step 3: Configure Domain
-1. In Netlify dashboard, go to "Domain settings"
-2. Add custom domain: `saaraelarifi.com`
-3. Follow DNS configuration instructions
-4. Enable HTTPS (automatic with Netlify)
-
-### Step 4: Enable Netlify CMS
-1. Enable Netlify Identity in site settings
-2. Enable Git Gateway
-3. Invite yourself as a user
-4. Access CMS at `https://saaraelarifi.com/admin`
+### Step 3: Domain Configuration (Optional)
+1. Go to GitHub Repo Settings -> Pages
+2. Add custom domain (e.g., `saaraelarifi.com`)
+3. Configure DNS records as per GitHub's instructions
+4. Enforce HTTPS
 
 ## File Structure
 
