@@ -74,3 +74,18 @@ document.querySelectorAll('.book-cover').forEach(cover => {
         this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
     });
 });
+// Contact Form Handling
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+        const form = document.getElementById('contact-form');
+        const successMsg = document.getElementById('form-success');
+
+        if (form && successMsg) {
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+            // Smooth scroll to success message
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+});
