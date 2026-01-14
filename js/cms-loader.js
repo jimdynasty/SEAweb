@@ -170,6 +170,117 @@ async function renderEventsPage() {
   }).join('');
 }
 
+// Render news posts
+async function renderNewsPosts() {
+  const featuredContainer = document.getElementById('featured-news');
+  const postsContainer = document.getElementById('news-posts');
+
+  const posts = await loadNews();
+
+  if (posts.length === 0) {
+    if (featuredContainer) featuredContainer.innerHTML = '';
+    if (postsContainer) {
+      postsContainer.innerHTML = '<div class="max-w-4xl mx-auto px-6"><div class="text-center py-12 text-gray-400">No news posts yet. Check back soon!</div></div>';
+    }
+    return;
+  }
+
+  const featuredPost = posts.find(p => p.featured);
+  const regularPosts = posts.filter(p => !p.featured);
+
+  // Render featured post
+  if (featuredContainer && featuredPost) {
+    const excerpt = featuredPost.excerpt || '';
+    const truncated = excerpt.length > 150 ? excerpt.substring(0, 150) + '...' : excerpt;
+    // Use body if available (parsed with marked), otherwise fallback to long excerpt
+    const fullContent = featuredPost.body ? marked.parse(featuredPost.body) : excerpt;
+    const needsExpand = !!featuredPost.body || excerpt.length > 150;
+    const image = resolvePath(featuredPost.image);
+
+    featuredContainer.innerHTML = `
+      <div class="card p-8 border-accent/30">
+        <span class="bestseller-badge inline-block mb-4">Featured</span>
+        <div class="flex flex-col md:flex-row gap-8 items-start">
+          <div class="flex-1 order-2 md:order-1">
+            <h2 class="font-display text-3xl text-white mb-4">${featuredPost.title}</h2>
+            <div class="text-gray-400">
+              <div id="featured-excerpt" class="news-excerpt prose prose-invert">${truncated}</div>
+              ${needsExpand ? `
+                <button id="featured-btn-readmore" onclick="toggleNewsExcerpt('featured')" class="btn-primary mt-4">
+                  <span>Read more</span>
+                </button>
+                <div id="featured-full" class="hidden mt-4 text-left">
+                  <div class="prose prose-invert max-w-none mb-6">${fullContent}</div>
+                  <button onclick="toggleNewsExcerpt('featured')" class="btn-primary">
+                    <span>Close</span>
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+          ${image ? `
+            <div class="w-full md:w-1/3 flex-shrink-0 order-1 md:order-2">
+              <img src="${image}" alt="${featuredPost.title}" class="w-full h-auto rounded-lg shadow-lg object-cover border border-white/10">
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  } else if (featuredContainer) {
+    featuredContainer.innerHTML = '';
+  }
+
+  // Render regular posts
+  if (postsContainer) {
+    if (regularPosts.length === 0 && !featuredPost) {
+      postsContainer.innerHTML = '<div class="max-w-4xl mx-auto px-6"><div class="text-center py-12 text-gray-400">No news posts yet. Check back soon!</div></div>';
+      return;
+    }
+
+    if (regularPosts.length > 0) {
+      postsContainer.innerHTML = '<div class="max-w-4xl mx-auto px-6"><div class="grid gap-6">' + regularPosts.map((post, index) => {
+        const excerpt = post.excerpt || '';
+        const truncated = excerpt.length > 200 ? excerpt.substring(0, 200) + '...' : excerpt;
+        const fullContent = post.body ? marked.parse(post.body) : excerpt;
+        const needsExpand = !!post.body || excerpt.length > 200;
+        const image = resolvePath(post.image);
+
+        return `
+          <article class="card p-6">
+            <div class="flex flex-col md:flex-row gap-6 items-start">
+              <div class="flex-1 order-2 md:order-1">
+                <span class="text-accent text-xs uppercase">${post.category || 'News'}</span>
+                <h3 class="text-xl text-white font-semibold mt-1 mb-2">${post.title}</h3>
+                <div class="text-gray-400 text-sm">
+                  <div id="news-excerpt-${index}" class="prose prose-invert">${truncated}</div>
+                  ${needsExpand ? `
+                    <button id="news-btn-readmore-${index}" onclick="toggleNewsExcerpt(${index})" class="btn-primary mt-4 text-sm">
+                      <span>Read more</span>
+                    </button>
+                    <div id="news-full-${index}" class="hidden mt-4 text-left">
+                      <div class="prose prose-invert max-w-none mb-4">${fullContent}</div>
+                      <button onclick="toggleNewsExcerpt(${index})" class="btn-primary text-sm">
+                        <span>Close</span>
+                      </button>
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+              ${image ? `
+                <div class="w-full md:w-1/4 flex-shrink-0 order-1 md:order-2">
+                  <img src="${image}" alt="${post.title}" class="w-full h-32 md:h-24 rounded-lg shadow-md object-cover border border-white/10">
+                </div>
+              ` : ''}
+            </div>
+          </article>
+        `;
+      }).join('') + '</div></div>';
+    } else {
+      postsContainer.innerHTML = '';
+    }
+  }
+}
+
 // Toggle news excerpt expansion
 window.toggleNewsExcerpt = function (index) {
   const excerptEl = document.getElementById(index === 'featured' ? 'featured-excerpt' : `news-excerpt-${index}`);
