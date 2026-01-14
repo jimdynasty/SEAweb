@@ -4,6 +4,7 @@ date: 2026-01-14T12:20:00
 featured: true
 category: Tour
 excerpt: The CLEOPATRA UK tour is HERE! Grab your tickets for the London CLEOPATRA EXTRAVAGANZA and many more stops across the country.
+image: /assets/images/uploads/uk cleo tour.jpg
 series: Cleopatra
 ---
 I am _beyond_ excited to announce the UK tour dates and locations for the release of **CLEOPATRA**. Tickets are going to go fast…especially for the **London CLEOPATRA EXTRAVAGANZA** (this genius of a rhyme came from my publicists mind).
