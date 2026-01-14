@@ -41,6 +41,6 @@ collections:
       - {label: "Event Type", name: "type", widget: "select", options: ["Book Signing", "Festival", "Panel", "Workshop", "Other"], default: "Book Signing"}
       - {label: "Location Name", name: "location", widget: "string"}
       - {label: "Time", name: "time", widget: "string", default: "6:00 PM"}
-      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Description", name: "description", widget: "text", pattern: ["^.{0,200}$", "Must not exceed 200 characters"]}
       - {label: "Ticket Link", name: "ticketLink", widget: "string", required: false}
       - {label: "Past Event", name: "past", widget: "boolean", default: false, required: false}

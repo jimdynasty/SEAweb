@@ -126,8 +126,6 @@ async function renderEventsPage() {
   container.innerHTML = events.map((event, index) => {
     const dateInfo = formatEventDate(event.date);
     const description = event.description || '';
-    const truncated = description.length > 200 ? description.substring(0, 200) + '...' : description;
-    const needsExpand = description.length > 200;
 
     return `
       <div class="card p-6 md:p-8">
@@ -140,13 +138,7 @@ async function renderEventsPage() {
             <span class="text-xs text-accent uppercase tracking-wider">${event.type || 'Event'}</span>
             <h3 class="text-xl text-white font-semibold mt-1 mb-2">${event.title}</h3>
             <div class="text-gray-400 mb-4">
-              <p id="desc-${index}" class="event-description">${truncated}</p>
-              ${needsExpand ? `
-                <button onclick="toggleDescription(${index})" class="text-accent text-sm hover:text-accent-light transition mt-2">
-                  <span id="btn-${index}">Read more →</span>
-                </button>
-                <div id="full-desc-${index}" class="hidden">${description}</div>
-              ` : ''}
+              <p class="event-description">${description}</p>
             </div>
             <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
               <span class="flex items-center gap-2">
