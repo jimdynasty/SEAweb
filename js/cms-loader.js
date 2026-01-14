@@ -21,13 +21,32 @@ function formatEventDate(dateString) {
   };
 }
 
+// Helper to get base path
+function getBasePath() {
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  return isGitHubPages ? '/SEAweb' : '';
+}
+
+// Helper to resolve image paths (handle local/prod and spaces)
+function resolvePath(path) {
+  if (!path) return null;
+
+  // Clean path
+  let cleanPath = path.trim();
+
+  // Prepend base path if it starts with /
+  if (cleanPath.startsWith('/')) {
+    cleanPath = getBasePath() + cleanPath;
+  }
+
+  // Encode spaces and other special chars, but leave slashes
+  return encodeURI(cleanPath);
+}
+
 // Load events from static JSON
 async function loadEvents() {
   try {
-    // Determine base URL: use GitHub Pages path if on github.io, else root
-    const isGitHubPages = window.location.hostname.includes('github.io');
-    const basePath = isGitHubPages ? '/SEAweb' : '';
-
+    const basePath = getBasePath();
     const response = await fetch(`${basePath}/events.json?t=${new Date().getTime()}`); // Add timestamp to prevent caching
     if (!response.ok) return [];
     const events = await response.json();
@@ -46,9 +65,7 @@ async function loadEvents() {
 // Load news from static JSON
 async function loadNews() {
   try {
-    const isGitHubPages = window.location.hostname.includes('github.io');
-    const basePath = isGitHubPages ? '/SEAweb' : '';
-
+    const basePath = getBasePath();
     const response = await fetch(`${basePath}/news.json?t=${new Date().getTime()}`);
     if (!response.ok) return [];
     const posts = await response.json();
@@ -188,9 +205,10 @@ async function renderNewsPosts() {
   if (featuredContainer && featuredPost) {
     const excerpt = featuredPost.excerpt || '';
     const truncated = excerpt.length > 150 ? excerpt.substring(0, 150) + '...' : excerpt;
+    // Use body if available (parsed with marked), otherwise fallback to long excerpt
     const fullContent = featuredPost.body ? marked.parse(featuredPost.body) : excerpt;
     const needsExpand = !!featuredPost.body || excerpt.length > 150;
-    const image = featuredPost.image;
+    const image = resolvePath(featuredPost.image);
 
     featuredContainer.innerHTML = `
       <div class="card p-8 border-accent/30">
@@ -233,7 +251,7 @@ async function renderNewsPosts() {
         const truncated = excerpt.length > 200 ? excerpt.substring(0, 200) + '...' : excerpt;
         const fullContent = post.body ? marked.parse(post.body) : excerpt;
         const needsExpand = !!post.body || excerpt.length > 200;
-        const image = post.image;
+        const image = resolvePath(post.image);
 
         return `
           <article class="card p-6">
