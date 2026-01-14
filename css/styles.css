@@ -75,7 +75,7 @@ body {
 
 /* Logo - inverted to white */
 .logo-white {
-  filter: invert(1) drop-shadow(0 0 30px rgba(255, 255, 255, 0.3));
+  filter: invert(1);
 }
 
 
