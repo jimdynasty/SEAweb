@@ -219,8 +219,8 @@ async function renderNewsPosts() {
             <div class="text-gray-400">
               <div id="featured-excerpt" class="news-excerpt prose prose-invert">${truncated}</div>
               ${needsExpand ? `
-                <button onclick="toggleNewsExcerpt('featured')" class="text-accent text-sm hover:text-accent-light transition mt-2">
-                  <span id="featured-btn">Read more →</span>
+                <button onclick="toggleNewsExcerpt('featured')" class="btn-primary mt-4">
+                  <span id="featured-btn">Read more</span>
                 </button>
                 <div id="featured-full" class="hidden prose prose-invert max-w-none mt-4 text-left">${fullContent}</div>
               ` : ''}
@@ -262,8 +262,8 @@ async function renderNewsPosts() {
                 <div class="text-gray-400 text-sm">
                   <div id="news-excerpt-${index}" class="prose prose-invert">${truncated}</div>
                   ${needsExpand ? `
-                    <button onclick="toggleNewsExcerpt(${index})" class="text-accent text-sm hover:text-accent-light transition mt-2">
-                      <span id="news-btn-${index}">Read more →</span>
+                    <button onclick="toggleNewsExcerpt(${index})" class="btn-primary mt-4 text-sm">
+                      <span id="news-btn-${index}">Read more</span>
                     </button>
                     <div id="news-full-${index}" class="hidden prose prose-invert max-w-none mt-4 text-left">${fullContent}</div>
                   ` : ''}
@@ -293,11 +293,11 @@ window.toggleNewsExcerpt = function (index) {
   if (fullEl.classList.contains('hidden')) {
     truncatedEl.classList.add('hidden');
     fullEl.classList.remove('hidden');
-    btnEl.textContent = 'Show less ←';
+    btnEl.textContent = 'Show less';
   } else {
     truncatedEl.classList.remove('hidden');
     fullEl.classList.add('hidden');
-    btnEl.textContent = 'Read more →';
+    btnEl.textContent = 'Read more';
   }
 };
 
