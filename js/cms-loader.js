@@ -188,19 +188,21 @@ async function renderNewsPosts() {
   if (featuredContainer && featuredPost) {
     const excerpt = featuredPost.excerpt || '';
     const truncated = excerpt.length > 150 ? excerpt.substring(0, 150) + '...' : excerpt;
-    const needsExpand = excerpt.length > 150;
+    // Use body if available (parsed with marked), otherwise fallback to long excerpt
+    const fullContent = featuredPost.body ? marked.parse(featuredPost.body) : excerpt;
+    const needsExpand = !!featuredPost.body || excerpt.length > 150;
 
     featuredContainer.innerHTML = `
       <div class="card p-8 border-accent/30">
         <span class="bestseller-badge inline-block mb-4">Featured</span>
         <h2 class="font-display text-3xl text-white mt-2 mb-4">${featuredPost.title}</h2>
         <div class="text-gray-400 mb-6">
-          <p id="featured-excerpt" class="news-excerpt">${truncated}</p>
+          <div id="featured-excerpt" class="news-excerpt prose prose-invert">${truncated}</div>
           ${needsExpand ? `
             <button onclick="toggleNewsExcerpt('featured')" class="text-accent text-sm hover:text-accent-light transition mt-2">
               <span id="featured-btn">Read more →</span>
             </button>
-            <div id="featured-full" class="hidden">${excerpt}</div>
+            <div id="featured-full" class="hidden prose prose-invert max-w-none mt-4 text-left">${fullContent}</div>
           ` : ''}
         </div>
       </div>
@@ -220,19 +222,20 @@ async function renderNewsPosts() {
       postsContainer.innerHTML = '<div class="max-w-4xl mx-auto px-6"><div class="grid gap-6">' + regularPosts.map((post, index) => {
         const excerpt = post.excerpt || '';
         const truncated = excerpt.length > 200 ? excerpt.substring(0, 200) + '...' : excerpt;
-        const needsExpand = excerpt.length > 200;
+        const fullContent = post.body ? marked.parse(post.body) : excerpt;
+        const needsExpand = !!post.body || excerpt.length > 200;
 
         return `
           <article class="card p-6">
             <span class="text-accent text-xs uppercase">${post.category || 'News'}</span>
             <h3 class="text-xl text-white font-semibold mt-1 mb-2">${post.title}</h3>
             <div class="text-gray-400 text-sm">
-              <p id="news-excerpt-${index}">${truncated}</p>
+              <div id="news-excerpt-${index}" class="prose prose-invert">${truncated}</div>
               ${needsExpand ? `
                 <button onclick="toggleNewsExcerpt(${index})" class="text-accent text-sm hover:text-accent-light transition mt-2">
                   <span id="news-btn-${index}">Read more →</span>
                 </button>
-                <div id="news-full-${index}" class="hidden">${excerpt}</div>
+                <div id="news-full-${index}" class="hidden prose prose-invert max-w-none mt-4 text-left">${fullContent}</div>
               ` : ''}
             </div>
           </article>
