@@ -1,5 +1,5 @@
 ---
-title: In conversation with Griffin Books
+title: Saara in conversation with Griffin Books
 date: 2026-03-19T19:30:00
 type: Book Signing
 location: Penarth Pier Pavilion, Penarth
