@@ -128,38 +128,38 @@ async function renderEventsPage() {
     const description = event.description || '';
 
     return `
-      <div class="card p-6">
-        <div class="flex flex-col md:flex-row items-center gap-6">
+      <div class="card p-4 md:p-6">
+        <div class="flex flex-row items-center gap-3 md:gap-6">
           
           <!-- Column 1: Date & Location -->
-          <div class="flex flex-col items-center md:items-start text-center md:text-left min-w-[140px] flex-shrink-0">
-            <div class="bg-accent/20 rounded-xl p-3 text-center w-full mb-3">
-              <p class="text-accent font-bold text-3xl leading-none">${dateInfo.day}</p>
-              <p class="text-accent-light text-sm uppercase font-semibold">${dateInfo.month} ${dateInfo.year}</p>
+          <div class="flex flex-col items-center text-center min-w-[80px] md:min-w-[140px] flex-shrink-0">
+            <div class="bg-accent/20 rounded-xl p-2 md:p-3 text-center w-full mb-2">
+              <p class="text-accent font-bold text-xl md:text-3xl leading-none">${dateInfo.day}</p>
+              <p class="text-accent-light text-[10px] md:text-sm uppercase font-semibold">${dateInfo.month} ${dateInfo.year}</p>
             </div>
-            <div class="text-gray-400 text-sm space-y-1">
-               <div class="flex items-center gap-2 justify-center md:justify-start">
-                  <svg class="w-4 h-4 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                  <span>${event.location}</span>
+            <div class="text-gray-400 text-[10px] md:text-sm space-y-1">
+               <div class="flex items-center gap-1 md:gap-2 justify-center">
+                  <svg class="w-3 h-3 md:w-4 md:h-4 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  <span class="truncate max-w-[80px] md:max-w-none">${event.location}</span>
                </div>
                ${event.time ? `
-               <div class="flex items-center gap-2 justify-center md:justify-start">
-                  <svg class="w-4 h-4 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+               <div class="flex items-center gap-1 md:gap-2 justify-center">
+                  <svg class="w-3 h-3 md:w-4 md:h-4 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                   <span>${event.time}</span>
                </div>` : ''}
             </div>
           </div>
 
           <!-- Column 2: Title & Description -->
-          <div class="flex-1 text-center md:text-left w-full md:w-auto">
-            <span class="text-xs text-accent uppercase tracking-wider mb-2 block">${event.type || 'Event'}</span>
-            <h3 class="text-xl text-white font-semibold mb-2">${event.title}</h3>
+          <div class="flex-1 text-left min-w-0">
+            <span class="text-[10px] md:text-xs text-accent uppercase tracking-wider mb-1 block">${event.type || 'Event'}</span>
+            <h3 class="text-base md:text-xl text-white font-semibold mb-1 md:mb-2 leading-tight">${event.title}</h3>
             ${description ? `<p class="text-gray-400 text-sm hidden md:block max-w-2xl">${description}</p>` : ''}
           </div>
 
           <!-- Column 3: Ticket Button -->
-          <div class="flex-shrink-0 w-full md:w-auto">
-             ${event.ticketLink ? `<a href="${event.ticketLink}" target="_blank" rel="noopener noreferrer" class="btn-primary w-full md:w-auto text-center block">Get Tickets</a>` : ''}
+          <div class="flex-shrink-0">
+             ${event.ticketLink ? `<a href="${event.ticketLink}" target="_blank" rel="noopener noreferrer" class="btn-primary text-xs md:text-sm px-3 py-2 md:px-6 md:py-3 whitespace-nowrap">Tickets</a>` : ''}
           </div>
 
         </div>
@@ -168,7 +168,7 @@ async function renderEventsPage() {
   }).join('');
 }
 
-// Toggle description expansion (Keeping helper for compatibility, though currently unused in events)
+// Toggle description expansion
 window.toggleDescription = function (index) {
   const truncatedEl = document.getElementById(`desc-${index}`);
   const fullEl = document.getElementById(`full-desc-${index}`);
