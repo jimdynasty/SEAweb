@@ -208,7 +208,7 @@ body {
 
 /* Book cover hover effect */
 .book-cover {
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.5s ease-out;
 }
 
 .book-cover:hover {
