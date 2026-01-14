@@ -1,28 +1,21 @@
 ---
-title: Test news A
-date: 2025-01-10T10:00:00.000Z
+title: 🐍 CLEOPATRA UK TOUR 🐍
+date: 2026-01-14T12:20:00
 featured: true
 category: Tour
-excerpt: The Cursebound UK tour is HERE! Grab your tickets for London,
-  Manchester, and Edinburgh stops. Limited availability — don't miss out on
-  meeting Saara and getting your books signed!
+excerpt: The CLEOPATRA UK tour is HERE! Grab your tickets for the London CLEOPATRA EXTRAVAGANZA and many more stops across the country.
 series: Faebound
 ---
+I am BEYOND excited to announce the UK tour dates and locations for the release of CLEOPATRA. Tickets are going to go fast…especially for the London CLEOPATRA EXTRAVAGANZA (this genius of a rhyme came from my publicists mind).
 
-The Cursebound UK tour is officially happening, and tickets are now available!
+Thank you to all the booksellers who are championing this release by opening their doors to little ol’ me.
 
-## Tour Dates
+A HUGE thank you to my wonderful moderators and fellow panellists. You guys rock, I’m so excited to do these events with you.
 
-- **London** - February 15, 2025 at Waterstones Piccadilly
-- **Manchester** - February 22, 2025 at Waterstones Deansgate  
-- **Edinburgh** - March 1, 2025 at Waterstones West End
+These aren’t the only events I’ll be doing this year - there’ll be many more festivals and events to come.
 
-Each event will include:
-- Book signing
-- Q&A session
-- Exclusive behind-the-scenes stories about the Faebound series
-- Photo opportunities
+And if you’re based on the US East Coast keep an eye out in the coming weeks...
 
-Tickets are limited and selling fast. Visit the [Events page](/events.html) for ticket links!
+Tickets are limited and selling fast. Visit the Events page for ticket links!
 
 See you on tour! 💜✨
