@@ -92,35 +92,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Drag to Scroll implementation for My Worlds carousel
 const carousel = document.getElementById('my-worlds-carousel');
+const dotsContainer = document.getElementById('carousel-dots');
+const dots = dotsContainer ? dotsContainer.querySelectorAll('button') : [];
+
+function updateDots() {
+    if (!carousel || !dots.length) return;
+    const scrollLeft = carousel.scrollLeft;
+    const itemWidth = carousel.firstElementChild.offsetWidth; // Approximate
+    const index = Math.round(scrollLeft / itemWidth);
+
+    dots.forEach((dot, i) => {
+        dot.style.opacity = i === index ? '1' : '0.4';
+    });
+}
+
 if (carousel) {
     let isDown = false;
     let startX;
     let scrollLeft;
 
+    // Update dots on scroll
+    carousel.addEventListener('scroll', () => {
+        // Debounce slightly or just run
+        requestAnimationFrame(updateDots);
+    });
+
     carousel.addEventListener('mousedown', (e) => {
         isDown = true;
-        // The dragging will disable default click events, so links might need careful handling if a drag occurred.
-        // But for <a href>, usually if mouseup happens on same element without move it's a click.
         carousel.classList.add('active');
+        // Disable snap during drag for smooth feel
+        carousel.style.scrollSnapType = 'none';
+
         startX = e.pageX - carousel.offsetLeft;
         scrollLeft = carousel.scrollLeft;
     });
 
     carousel.addEventListener('mouseleave', () => {
-        isDown = false;
-        carousel.classList.remove('active');
+        if (isDown) {
+            isDown = false;
+            carousel.classList.remove('active');
+            carousel.style.scrollSnapType = 'x mandatory';
+        }
     });
 
     carousel.addEventListener('mouseup', () => {
         isDown = false;
         carousel.classList.remove('active');
+        // Re-enable snap to let it settle
+        carousel.style.scrollSnapType = 'x mandatory';
     });
 
     carousel.addEventListener('mousemove', (e) => {
         if (!isDown) return;
-        e.preventDefault(); // Prevent text selection/drag behaviors
+        e.preventDefault();
         const x = e.pageX - carousel.offsetLeft;
         const walk = (x - startX) * 2; // Scroll-fast
         carousel.scrollLeft = scrollLeft - walk;
     });
+
+    // Initial dot state
+    updateDots();
 }
