@@ -159,9 +159,10 @@
                     desire. Welcome to the intoxicating world of the fae.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div id="faebound-carousel"
+                class="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory -mx-6 md:mx-0 px-[calc(50%-140px)] md:px-0 pb-0 md:pb-0 scrollbar-hide w-[calc(100%+48px)] md:w-full justify-start md:justify-center cursor-grab active:cursor-grabbing">
                 <!-- Faebound -->
-                <div class="card p-6 text-center">
+                <div class="card p-6 text-center w-[280px] md:w-auto snap-center flex-shrink-0">
                     <div class="w-48 h-72 mx-auto mb-6 overflow-visible shadow-xl group">
                         <img src="assets/images/faebound.jpg" alt="Faebound"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -176,7 +177,7 @@
                 </div>
 
                 <!-- Cursebound -->
-                <div class="card p-6 text-center ">
+                <div class="card p-6 text-center w-[280px] md:w-auto snap-center flex-shrink-0">
                     <div class="w-48 h-72 mx-auto mb-6 overflow-visible shadow-xl group">
                         <img src="assets/images/cursebound.jpg" alt="Cursebound"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -191,7 +192,7 @@
                 </div>
 
                 <!-- Earthbound -->
-                <div class="card p-6 text-center">
+                <div class="card p-6 text-center w-[280px] md:w-auto snap-center flex-shrink-0">
                     <div class="w-48 h-72 mx-auto mb-6 shadow-xl group overflow-visible relative">
                         <!-- Release banner overlaid on top -->
                         <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
@@ -213,12 +214,22 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Carousel Indicators (Dots) -->
+            <div class="flex justify-center gap-2 py-6 md:hidden" id="faebound-dots">
+                <button class="w-2 h-2 rounded-full bg-white opacity-100 transition-opacity"
+                    aria-label="Slide 1"></button>
+                <button class="w-2 h-2 rounded-full bg-white opacity-40 transition-opacity"
+                    aria-label="Slide 2"></button>
+                <button class="w-2 h-2 rounded-full bg-white opacity-40 transition-opacity"
+                    aria-label="Slide 3"></button>
+            </div>
         </div>
         </div>
     </section>
 
     <!-- The Ending Fire Trilogy -->
-    <section class="py-16" id="ending-fire">
+    <section class="py-16 bg-slate-darker/50" id="ending-fire">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-12">
                 <h2 class="font-display text-4xl text-white mb-4">The Ending Fire Trilogy</h2>
@@ -226,9 +237,10 @@
                     elite. Blue is the blood of the poor. Clear is the blood of the invisible.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div id="ending-fire-carousel"
+                class="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory -mx-6 md:mx-0 px-[calc(50%-140px)] md:px-0 pb-0 md:pb-0 scrollbar-hide w-[calc(100%+48px)] md:w-full justify-start md:justify-center cursor-grab active:cursor-grabbing">
                 <!-- The Final Strife -->
-                <div class="card p-6 text-center">
+                <div class="p-6 text-center w-[280px] md:w-auto snap-center flex-shrink-0">
                     <div class="w-48 h-72 mx-auto mb-6 overflow-visible shadow-xl group">
                         <img src="assets/images/final-strife.jpg" alt="The Final Strife"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -243,7 +255,7 @@
                 </div>
 
                 <!-- The Battle Drum -->
-                <div class="card p-6 text-center">
+                <div class="p-6 text-center w-[280px] md:w-auto snap-center flex-shrink-0">
                     <div class="w-48 h-72 mx-auto mb-6 overflow-visible shadow-xl group">
                         <img src="assets/images/battle-drum.jpg" alt="The Battle Drum"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -258,7 +270,7 @@
                 </div>
 
                 <!-- The Ending Fire -->
-                <div class="card p-6 text-center">
+                <div class="p-6 text-center w-[280px] md:w-auto snap-center flex-shrink-0">
                     <div class="w-48 h-72 mx-auto mb-6 overflow-visible shadow-xl group">
                         <img src="assets/images/ending-fire.jpg" alt="The Ending Fire"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -271,6 +283,16 @@
                         <a href="#" class="btn-secondary text-xs py-2 px-4">Waterstones</a>
                     </div>
                 </div>
+            </div>
+
+            <!-- Carousel Indicators (Dots) -->
+            <div class="flex justify-center gap-2 py-6 md:hidden" id="ending-fire-dots">
+                <button class="w-2 h-2 rounded-full bg-white opacity-100 transition-opacity"
+                    aria-label="Slide 1"></button>
+                <button class="w-2 h-2 rounded-full bg-white opacity-40 transition-opacity"
+                    aria-label="Slide 2"></button>
+                <button class="w-2 h-2 rounded-full bg-white opacity-40 transition-opacity"
+                    aria-label="Slide 3"></button>
             </div>
         </div>
     </section>
