@@ -98,7 +98,8 @@ const dots = dotsContainer ? dotsContainer.querySelectorAll('button') : [];
 function updateDots() {
     if (!carousel || !dots.length) return;
     const scrollLeft = carousel.scrollLeft;
-    const itemWidth = carousel.firstElementChild.offsetWidth; // Approximate
+    const itemWidth = carousel.firstElementChild.offsetWidth + 24; // Width + gap (approx 24px/1.5rem)
+    // Use Math.round to find nearest index.
     const index = Math.round(scrollLeft / itemWidth);
 
     dots.forEach((dot, i) => {
@@ -110,18 +111,33 @@ if (carousel) {
     let isDown = false;
     let startX;
     let scrollLeft;
+    let isDragging = false; // Flag to distinguish click vs drag
+
+    // Prevent default image drag behavior to avoid ghost images
+    carousel.querySelectorAll('img').forEach(img => {
+        img.addEventListener('dragstart', (e) => e.preventDefault());
+    });
+
+    // Prevent link click if we were dragging
+    carousel.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+    });
 
     // Update dots on scroll
     carousel.addEventListener('scroll', () => {
-        // Debounce slightly or just run
         requestAnimationFrame(updateDots);
     });
 
     carousel.addEventListener('mousedown', (e) => {
         isDown = true;
+        isDragging = false; // Reset drag flag
         carousel.classList.add('active');
-        // Disable snap during drag for smooth feel
-        carousel.style.scrollSnapType = 'none';
+        carousel.style.scrollSnapType = 'none'; // Disable snap for smooth drag
 
         startX = e.pageX - carousel.offsetLeft;
         scrollLeft = carousel.scrollLeft;
@@ -131,23 +147,31 @@ if (carousel) {
         if (isDown) {
             isDown = false;
             carousel.classList.remove('active');
-            carousel.style.scrollSnapType = 'x mandatory';
+            carousel.style.scrollSnapType = 'x mandatory'; // Re-enable snap
         }
     });
 
     carousel.addEventListener('mouseup', () => {
         isDown = false;
         carousel.classList.remove('active');
-        // Re-enable snap to let it settle
-        carousel.style.scrollSnapType = 'x mandatory';
+        carousel.style.scrollSnapType = 'x mandatory'; // Re-enable snap
+
+        // Small delay to clear isDragging so click handler checks it first
+        setTimeout(() => { isDragging = false; }, 50);
     });
 
     carousel.addEventListener('mousemove', (e) => {
         if (!isDown) return;
-        e.preventDefault();
+
         const x = e.pageX - carousel.offsetLeft;
         const walk = (x - startX) * 2; // Scroll-fast
-        carousel.scrollLeft = scrollLeft - walk;
+
+        // If moved significantly, consider it a drag
+        if (Math.abs(walk) > 5) {
+            isDragging = true;
+            e.preventDefault(); // Prevent text selection
+            carousel.scrollLeft = scrollLeft - walk;
+        }
     });
 
     // Initial dot state
