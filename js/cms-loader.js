@@ -91,7 +91,9 @@ async function renderHomeEvents() {
     return;
   }
 
-  return `
+  container.innerHTML = upcomingEvents.map(event => {
+    const dateInfo = formatEventDate(event.date);
+    return `
       <div class="card p-4 md:p-6 h-full flex flex-col justify-center">
         <div class="flex flex-row items-center gap-3">
           
@@ -124,7 +126,7 @@ async function renderHomeEvents() {
         </div>
       </div>
     `;
-}).join('');
+  }).join('');
 }
 
 // Render full events page
