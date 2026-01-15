@@ -91,39 +91,40 @@ async function renderHomeEvents() {
     return;
   }
 
-  container.innerHTML = upcomingEvents.map(event => {
-    const dateInfo = formatEventDate(event.date);
-    return `
-      <div class="card p-6 h-full flex flex-col">
-        <div class="flex items-start gap-4 mb-4">
-          <div class="bg-accent/20 rounded-xl p-2 md:p-3 text-center min-w-[70px] flex-shrink-0">
-            <p class="text-accent font-bold text-2xl leading-none">${dateInfo.day}</p>
-            <p class="text-accent-light text-[10px] uppercase font-semibold">${dateInfo.month}</p>
+  return `
+      <div class="card p-4 md:p-6 h-full flex flex-col justify-center">
+        <div class="flex flex-row items-center gap-3">
+          
+          <!-- Column 1: Date Only -->
+          <div class="flex flex-col items-center text-center min-w-[60px] flex-shrink-0">
+            <div class="bg-accent/20 rounded-xl p-2 text-center w-full">
+              <p class="text-accent font-bold text-xl leading-none">${dateInfo.day}</p>
+              <p class="text-accent-light text-[10px] uppercase font-semibold">${dateInfo.month}</p>
+            </div>
           </div>
-          <div>
-            <span class="text-[10px] text-accent uppercase tracking-wider mb-1 block">${event.type || 'Event'}</span>
-            <h3 class="text-lg text-white font-semibold leading-tight">${event.title}</h3>
-          </div>
-        </div>
-        
-        <div class="space-y-2 mb-6 flex-grow">
-           <div class="flex items-center gap-2 text-gray-400 text-sm">
-              <svg class="w-4 h-4 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              <span class="truncate">${event.location}</span>
-           </div>
-           ${event.time ? `
-           <div class="flex items-center gap-2 text-gray-400 text-sm">
-              <svg class="w-4 h-4 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              <span>${event.time}</span>
-           </div>` : ''}
-        </div>
 
-        <div class="mt-auto">
-           <a href="${event.ticketLink || '#'}" target="_blank" class="btn-primary w-full text-center block text-sm py-2">Get Tickets</a>
+          <!-- Column 2: Title & Location -->
+          <div class="flex-1 text-left min-w-0">
+            <span class="text-[10px] text-accent uppercase tracking-wider mb-0.5 block">${event.type || 'Event'}</span>
+            <h3 class="text-sm md:text-base text-white font-semibold mb-1 leading-tight line-clamp-2">${event.title}</h3>
+            
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-gray-400 text-[11px]">
+               <div class="flex items-center gap-1">
+                  <svg class="w-3 h-3 flex-shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  <span class="truncate">${event.location}</span>
+               </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Ticket Button -->
+          <div class="flex-shrink-0">
+             <a href="${event.ticketLink || '#'}" target="_blank" class="btn-primary text-[10px] md:text-xs px-3 py-1.5 md:px-4 md:py-2 whitespace-nowrap">Tickets</a>
+          </div>
+
         </div>
       </div>
     `;
-  }).join('');
+}).join('');
 }
 
 // Render full events page
