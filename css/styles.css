@@ -192,18 +192,26 @@ body {
   color: white;
 }
 
-/* Card styles */
+/* Glassmorphism Cards */
 .card {
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(2, 6, 23, 0.5);
+  /* backdrop-filter: blur(2px); */
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  border-color: var(--color-accent);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(233, 30, 140, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.card.no-card-hover:hover {
+  transform: none;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
 }
 
 /* Book cover hover effect */
