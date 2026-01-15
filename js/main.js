@@ -90,35 +90,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Drag to Scroll implementation for My Worlds carousel
-const carousel = document.getElementById('my-worlds-carousel');
-const dotsContainer = document.getElementById('carousel-dots');
-const dots = dotsContainer ? dotsContainer.querySelectorAll('button') : [];
+// Reusable Carousel Initialization
+function initCarousel(carouselId, dotsId) {
+    const carousel = document.getElementById(carouselId);
+    const dotsContainer = document.getElementById(dotsId);
+    const dots = dotsContainer ? dotsContainer.querySelectorAll('button') : [];
 
-function updateDots() {
-    if (!carousel || !dots.length) return;
-    const scrollLeft = carousel.scrollLeft;
-    const itemWidth = carousel.firstElementChild.offsetWidth + 24; // Width + gap (approx 24px/1.5rem)
-    // Use Math.round to find nearest index.
-    const index = Math.round(scrollLeft / itemWidth);
+    if (!carousel) return;
 
-    dots.forEach((dot, i) => {
-        dot.style.opacity = i === index ? '1' : '0.4';
-    });
-}
+    function updateDots() {
+        if (!dots.length) return;
+        const scrollLeft = carousel.scrollLeft;
+        // Width + gap (approx 24px/1.5rem) - Adjust if gap differs
+        const itemWidth = carousel.firstElementChild ? (carousel.firstElementChild.offsetWidth + 24) : 300;
+        const index = Math.round(scrollLeft / itemWidth);
 
-if (carousel) {
+        dots.forEach((dot, i) => {
+            dot.style.opacity = i === index ? '1' : '0.4';
+        });
+    }
+
     let isDown = false;
     let startX;
     let scrollLeft;
-    let isDragging = false; // Flag to distinguish click vs drag
+    let isDragging = false;
 
-    // Prevent default image drag behavior to avoid ghost images
+    // Prevent default image drag
     carousel.querySelectorAll('img').forEach(img => {
         img.addEventListener('dragstart', (e) => e.preventDefault());
     });
 
-    // Prevent link click if we were dragging
+    // Prevent link click if dragging
     carousel.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (e) => {
             if (isDragging) {
@@ -128,16 +130,15 @@ if (carousel) {
         });
     });
 
-    // Update dots on scroll
     carousel.addEventListener('scroll', () => {
         requestAnimationFrame(updateDots);
     });
 
     carousel.addEventListener('mousedown', (e) => {
         isDown = true;
-        isDragging = false; // Reset drag flag
+        isDragging = false;
         carousel.classList.add('active');
-        carousel.style.scrollSnapType = 'none'; // Disable snap for smooth drag
+        carousel.style.scrollSnapType = 'none';
 
         startX = e.pageX - carousel.offsetLeft;
         scrollLeft = carousel.scrollLeft;
@@ -147,29 +148,25 @@ if (carousel) {
         if (isDown) {
             isDown = false;
             carousel.classList.remove('active');
-            carousel.style.scrollSnapType = 'x mandatory'; // Re-enable snap
+            carousel.style.scrollSnapType = 'x mandatory';
         }
     });
 
     carousel.addEventListener('mouseup', () => {
         isDown = false;
         carousel.classList.remove('active');
-        carousel.style.scrollSnapType = 'x mandatory'; // Re-enable snap
-
-        // Small delay to clear isDragging so click handler checks it first
+        carousel.style.scrollSnapType = 'x mandatory';
         setTimeout(() => { isDragging = false; }, 50);
     });
 
     carousel.addEventListener('mousemove', (e) => {
         if (!isDown) return;
-
         const x = e.pageX - carousel.offsetLeft;
-        const walk = (x - startX) * 2; // Scroll-fast
+        const walk = (x - startX) * 2;
 
-        // If moved significantly, consider it a drag
         if (Math.abs(walk) > 5) {
             isDragging = true;
-            e.preventDefault(); // Prevent text selection
+            e.preventDefault();
             carousel.scrollLeft = scrollLeft - walk;
         }
     });
@@ -177,3 +174,10 @@ if (carousel) {
     // Initial dot state
     updateDots();
 }
+
+// Initialize Carousels
+document.addEventListener('DOMContentLoaded', () => {
+    initCarousel('my-worlds-carousel', 'carousel-dots');
+    initCarousel('faebound-carousel', 'faebound-dots');
+    initCarousel('ending-fire-carousel', 'ending-fire-dots');
+});
