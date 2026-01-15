@@ -89,3 +89,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+// Drag to Scroll implementation for My Worlds carousel
+const carousel = document.getElementById('my-worlds-carousel');
+if (carousel) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    carousel.addEventListener('mousedown', (e) => {
+        isDown = true;
+        // The dragging will disable default click events, so links might need careful handling if a drag occurred.
+        // But for <a href>, usually if mouseup happens on same element without move it's a click.
+        carousel.classList.add('active');
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+        isDown = false;
+        carousel.classList.remove('active');
+    });
+
+    carousel.addEventListener('mouseup', () => {
+        isDown = false;
+        carousel.classList.remove('active');
+    });
+
+    carousel.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault(); // Prevent text selection/drag behaviors
+        const x = e.pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 2; // Scroll-fast
+        carousel.scrollLeft = scrollLeft - walk;
+    });
+}
