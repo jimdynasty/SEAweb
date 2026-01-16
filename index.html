@@ -331,6 +331,26 @@
   <!-- JavaScript -->
   <script src="js/cms-loader.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    // Intersection Observer for Book Stack Animation on Scroll
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('stack-visible');
+          } else {
+            entry.target.classList.remove('stack-visible');
+          }
+        });
+      }, {
+        threshold: 0.6 // Trigger when 60% visible
+      });
+
+      document.querySelectorAll('.book-stack-container').forEach(stack => {
+        observer.observe(stack);
+      });
+    });
+  </script>
 </body>
 
 </html>

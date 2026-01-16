@@ -486,3 +486,28 @@ footer {
   scrollbar-width: none;
   /* Firefox */
 }
+/* Book Stack Animation */
+.book-stack-container:hover .book-stack-left,
+.book-stack-container.stack-visible .book-stack-left {
+  opacity: 1;
+  transform: translateX(-4rem) rotate(-6deg) scale(0.95);
+}
+
+.book-stack-container:hover .book-stack-right,
+.book-stack-container.stack-visible .book-stack-right {
+  opacity: 1;
+  transform: translateX(4rem) rotate(6deg) scale(0.95);
+}
+
+/* Ensure nice fan out on larger screens */
+@media (min-width: 768px) {
+  .book-stack-container:hover .book-stack-left,
+  .book-stack-container.stack-visible .book-stack-left {
+    transform: translateX(-6rem) rotate(-10deg) scale(0.95);
+  }
+
+  .book-stack-container:hover .book-stack-right,
+  .book-stack-container.stack-visible .book-stack-right {
+    transform: translateX(6rem) rotate(10deg) scale(0.95);
+  }
+}
