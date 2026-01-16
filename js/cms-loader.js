@@ -151,7 +151,7 @@ async function renderEventsPage() {
           
           <!-- Column 1: Date Only -->
           <div class="flex flex-col items-center text-center min-w-[60px] md:min-w-[100px] flex-shrink-0">
-            <div class="bg-accent/20 rounded-xl p-2 md:p-3 text-center w-full">
+            <div class="bg-accent/20 p-2 md:p-3 text-center w-full">
               <p class="text-accent font-bold text-xl md:text-3xl leading-none">${dateInfo.day}</p>
               <p class="text-accent-light text-[10px] md:text-sm uppercase font-semibold">${dateInfo.month} ${dateInfo.year}</p>
             </div>
@@ -238,7 +238,7 @@ async function renderNewsPosts() {
           </div>
           ${image ? `
             <div class="w-full md:w-1/3 flex-shrink-0 order-1 md:order-2">
-              <img src="${image}" alt="${featuredPost.title}" class="w-full h-auto rounded-lg shadow-lg object-cover border border-white/10">
+              <img src="${image}" alt="${featuredPost.title}" class="w-full h-auto shadow-lg object-cover border border-white/10">
             </div>
           ` : ''}
         </div>
@@ -285,9 +285,9 @@ async function renderNewsPosts() {
                 </div>
               </div>
               ${image ? `
-                <div class="w-full md:w-1/4 flex-shrink-0 order-1 md:order-2">
-                  <img src="${image}" alt="${post.title}" class="w-full h-32 md:h-24 rounded-lg shadow-md object-cover border border-white/10">
-                </div>
+                <div class="mb-4 overflow-hidden shadow-lg border border-white/5">
+                  <img src="${image}" alt="${post.title}" class="w-full h-32 md:h-24 shadow-md object-cover border border-white/10">
+              </div>
               ` : ''}
             </div>
           </article>

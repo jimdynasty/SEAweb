@@ -198,7 +198,6 @@ body {
   /* backdrop-filter: blur(2px); */
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
-  border-radius: 1rem;
   overflow: hidden;
 }
 
@@ -258,8 +257,25 @@ body {
 @media (max-width: 480px) {
   .wisp-fixed-top {
     width: 150px;
-    top: 100px;
+    top: 120px;
   }
+}
+
+/* Form Styles */
+input[type="text"],
+input[type="email"],
+textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--color-accent);
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .wisp-fixed-bottom {
