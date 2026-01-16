@@ -28,7 +28,7 @@ function adjustLogoResponsive() {
 
     const logoRect = logo.getBoundingClientRect();
     const navRect = nav.getBoundingClientRect();
-    const buffer = 50; // Minimum space between logo and nav
+    const buffer = 10; // Minimum space between logo and nav
 
     // Calculate if overlap is happening or imminent
     // We use the logo's left position + current width vs nav's left position
