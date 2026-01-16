@@ -4,11 +4,11 @@ A dark fantasy-themed author website for Saara El-Arifi, featuring book showcase
 
 ## Tech Stack
 
-- **Frontend**: HTML, CSS (Tailwind CSS via CDN), Vanilla JavaScript
-- **CMS**: **Sveltia CMS** (Git-based, no backend required) for News and Events
-- **Hosting**: **GitHub Pages**
-- **Forms**: **Web3Forms** (Contact Form)
-- **Local Development**: Python HTTP server
+- **Frontend**: HTML5, CSS3, Tailwind CSS (CDN), Vanilla JavaScript
+- **CMS**: **Sveltia CMS** (Git-based, no backend required)
+- **Hosting**: GitHub Pages
+- **Analytics**: Google Analytics 4
+- **Forms**: Web3Forms
 
 ## Local Development
 
@@ -19,129 +19,71 @@ python3 -m http.server 8000
 # Access at http://localhost:8000
 ```
 
-## Pre-Deployment Checklist
+## ✅ Completed Features
 
-### 🔴 Critical (Must Complete Before Launch)
+### Core Design
+- [x] **Dark Fantasy Theme**: Custom `slate-darker` palette, "wisp" decorations, and glassmorphism cards.
+- [x] **Responsive Layout**: Mobile-first design with hamburger menu and stackable grids.
+- [x] **Typography**: 'Italiana' (Display) and 'Inter' (Body) font pairing.
+- [x] **Animations**: Hover effects, scroll reveals, and smooth transitions.
 
-#### 1. Contact Form Backend
-- [x] Choose a form service (Web3Forms selected)
-- [x] Update `contact.html` form action attribute
-- [x] Configure form handler for email notifications
-- [x] Test form submission and delivery (verified with `?success=true` logic)
+### Interactive Elements
+- [x] **Book Stacks**: "Fan-out" animation on homepage for trilogy series (hover on desktop, scroll-triggered on mobile).
+- [x] **Easter Egg**: "Pudding & Noodle" pixel art reveal on Contact page FAQ hover.
+- [x] **Carousel**: Horizontal scroll snap carousel for books on mobile.
 
-#### 2. Newsletter Integration
-- [ ] Set up newsletter service (Mailchimp, Mailerlite, etc.)
-- [ ] Update newsletter form on homepage (`index.html`)
-- [ ] Configure API integration in `js/main.js`
-- [ ] Test newsletter signup flow
+### SEO & Analytics
+- [x] **Google Analytics**: GA4 tracking installed (`G-BMM2LZ8WQL`).
+- [x] **Meta Tags**: Title, Description, Open Graph (Social), and Twitter Cards on all pages.
+- [x] **Sitemap**: `sitemap.xml` generated.
+- [x] **Robots**: `robots.txt` configured.
+- [x] **Canonical URLs**: Added to prevent duplicate content issues.
+- [x] **Favicon**: Author logo configured as site icon.
 
-#### 3. Retailer Links
-- [ ] Add real Amazon UK links for all books in `books.html`
-- [ ] Add Waterstones links for all books
-- [ ] Add other retailer links as needed
-- [ ] Test all purchase links
+## 🚀 Pre-Publish Checklist (To Do)
 
-#### 4. Content Verification
-- [ ] Verify all book descriptions are accurate
-- [ ] Confirm all event details are current
-- [ ] Check author bio is up to date
-- [ ] Verify all contact email addresses
+### 1. Content Finalization
+- [ ] **Retailer Links**: Update "Buy Now" buttons in `books.html` with real URLs (Amazon, Waterstones, etc).
+- [ ] **Events**: Use the CMS (`/admin`) to add upcoming real events.
+- [ ] **News**: Use the CMS (`/admin`) to add latest news items.
+- [ ] **Privacy Policy**: Create a `privacy.html` page (required for Google Analytics compliance).
 
-### 🟡 Important (Recommended)
+### 2. Form Configuration
+- [ ] **Web3Forms**: Ensure the `access_key` in `contact.html` is valid and linked to the correct email address.
+- [ ] **Testing**: Send a test message and confirm receipt.
 
-#### 5. Analytics
-- [ ] Set up Google Analytics or Plausible
-- [ ] Add tracking code to all HTML pages
-- [ ] Configure goal tracking for newsletter signups
-- [ ] Configure goal tracking for book purchase clicks
-
-#### 6. SEO Optimization
-- [ ] Verify meta descriptions on all pages
-- [ ] Add Open Graph tags for social sharing
-- [ ] Create and upload `sitemap.xml`
-- [ ] Create and upload `robots.txt`
-- [ ] Add favicon files (all sizes)
-
-#### 7. Performance
-- [ ] Optimize all images (WebP format where possible)
-- [ ] Test page load speeds
-- [ ] Verify mobile responsiveness on real devices
-- [ ] Test on multiple browsers (Chrome, Firefox, Safari, Edge)
-
-### 🟢 Optional (Nice to Have)
-
-#### 8. Additional Features
-- [ ] Set up custom domain email forwarding
-- [ ] Add schema.org markup for author/books
-- [ ] Add JSON-LD structured data
-- [ ] Set up monitoring/uptime alerts
-
-## Deployment to GitHub Pages
-
-### Step 1: Prepare Repository
-The site is already configured for GitHub Pages. Any push to `main` triggers a build (via GitHub Actions) that updates the static content.
-
-```bash
-# Push changes to deploy
-git add .
-git commit -m "Update site content"
-git push origin main
-```
-
-### Step 2: CMS Access
-- Access the CMS at `https://jimdynasty.github.io/SEAweb/admin/`
-- Login with GitHub via the configured proxy.
-
-### Step 3: Domain Configuration (Optional)
-1. Go to GitHub Repo Settings -> Pages
-2. Add custom domain (e.g., `saaraelarifi.com`)
-3. Configure DNS records as per GitHub's instructions
-4. Enforce HTTPS
+### 3. CMS Setup
+- [ ] **Login**: Verify you can log in to `/admin` using your GitHub account.
+- [ ] **Test Post**: Create a draft news post to ensure the build pipeline triggers correctly.
 
 ## File Structure
 
 ```
 /
-├── index.html              # Homepage
-├── books.html             # Books showcase
-├── events.html            # Events calendar
-├── news.html              # News & updates
-├── contact.html           # Contact form
-├── about.html             # About page (no longer linked)
-├── admin/
-│   └── config.yml         # Netlify CMS config
+├── index.html              # Homepage (Hero, Author Bio, Featured Books)
+├── books.html             # Full Book List (The Ending Fire, Faebound)
+├── events.html            # Events Calendar (CMS Powered)
+├── news.html              # Latest News (CMS Powered)
+├── contact.html           # Contact Form & FAQs
+├── 404.html               # Custom Error Page
+├── fonts.html             # Client Font Review Page (Dev Tool)
+├── sitemap.xml            # SEO Sitemap
+├── robots.txt             # SEO Crawler Instructions
+├── admin/                 # CMS Configuration
 ├── assets/
-│   └── images/            # All image files
+│   └── images/            # Optimized Images (WebP/JPG/PNG)
 ├── css/
-│   └── styles.css         # Custom styles
-├── js/
-│   ├── main.js           # Main JavaScript
-│   └── cms-loader.js     # CMS content loader
-└── CMS_GUIDE.md          # CMS usage guide
+│   └── styles.css         # Custom Overrides & Tailwind Config
+└── js/
+    ├── main.js           # UI Interactions (Mobile Menu, Scroll Observers)
+    └── cms-loader.js     # JSON Content Loader
 ```
 
-## Quick Reference
+## CMS Guide
 
-### Brand Colors
-- **Pink Accent**: `#e91e8c`
-- **Light Pink**: `#f472b6`
-- **Dark Slate**: `#1a202c`
-- **Slate Blue**: `#3d4a5c`
-
-### Key Features
-- Responsive design (mobile-first)
-- Fixed navbar on all pages except homepage (absolute)
-- Decorative wisps (viewport-fixed on homepage)
-- Book hover parallax effects
-- Newsletter signup form
-- Contact form
-- Netlify CMS for News and Events
-
-## Support
-
-For questions or issues, refer to `CMS_GUIDE.md` for CMS instructions or contact the developer.
+Refer to `CMS_GUIDE.md` for instructions on how to add/edit News and Events.
 
 ## License
 
-© 2025 Saara El-Arifi. All rights reserved.
+© 2026 Saara El-Arifi. All rights reserved.
 Illustrations and logo by © Sophie Dunster
