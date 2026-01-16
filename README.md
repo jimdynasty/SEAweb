@@ -7,7 +7,6 @@ A dark fantasy-themed author website for Saara El-Arifi, featuring book showcase
 - **Frontend**: HTML5, CSS3, Tailwind CSS (CDN), Vanilla JavaScript
 - **CMS**: **Sveltia CMS** (Git-based, no backend required)
 - **Hosting**: GitHub Pages
-- **Analytics**: Google Analytics 4
 - **Forms**: Web3Forms
 
 ## Local Development
@@ -32,8 +31,7 @@ python3 -m http.server 8000
 - [x] **Easter Egg**: "Pudding & Noodle" pixel art reveal on Contact page FAQ hover.
 - [x] **Carousel**: Horizontal scroll snap carousel for books on mobile.
 
-### SEO & Analytics
-- [x] **Google Analytics**: GA4 tracking installed (`G-BMM2LZ8WQL`).
+### SEO
 - [x] **Meta Tags**: Title, Description, Open Graph (Social), and Twitter Cards on all pages.
 - [x] **Sitemap**: `sitemap.xml` generated.
 - [x] **Robots**: `robots.txt` configured.
