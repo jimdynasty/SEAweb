@@ -491,14 +491,14 @@ footer {
 .book-stack-container:hover .book-stack-left,
 .book-stack-container.stack-visible .book-stack-left {
   opacity: 1;
-  transform: translateX(-4rem) rotate(-6deg) scale(0.95);
+  transform: translateX(-2.5rem) rotate(-6deg) scale(0.95);
   box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 .book-stack-container:hover .book-stack-right,
 .book-stack-container.stack-visible .book-stack-right {
   opacity: 1;
-  transform: translateX(4rem) rotate(6deg) scale(0.95);
+  transform: translateX(2.5rem) rotate(6deg) scale(0.95);
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.4);
 }
 
