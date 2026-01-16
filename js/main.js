@@ -10,6 +10,41 @@ function toggleMobileMenu() {
     document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
 }
 
+// Dynamic Logo Resizing to prevent navbar overlap
+function adjustLogoResponsive() {
+    const logo = document.querySelector('.logo-white');
+    const nav = document.querySelector('.nav-desktop');
+
+    if (!logo || !nav) return;
+
+    // Only run on desktop where nav is visible
+    if (window.getComputedStyle(nav).display === 'none') {
+        logo.style.maxWidth = '';
+        return;
+    }
+
+    // Reset to measure natural size
+    logo.style.maxWidth = '';
+
+    const logoRect = logo.getBoundingClientRect();
+    const navRect = nav.getBoundingClientRect();
+    const buffer = 50; // Minimum space between logo and nav
+
+    // Calculate if overlap is happening or imminent
+    // We use the logo's left position + current width vs nav's left position
+    const availableSpace = navRect.left - logoRect.left - buffer;
+
+    if (logoRect.width > availableSpace) {
+        logo.style.maxWidth = `${Math.max(0, availableSpace)}px`;
+    }
+}
+
+// Run on load and resize
+window.addEventListener('load', adjustLogoResponsive);
+window.addEventListener('resize', adjustLogoResponsive);
+// Also run immediately in case DOM is ready
+adjustLogoResponsive();
+
 // Close mobile menu when clicking a link
 document.querySelectorAll('.mobile-menu a').forEach(link => {
     link.addEventListener('click', () => {
