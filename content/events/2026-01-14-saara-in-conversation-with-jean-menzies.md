@@ -1,5 +1,5 @@
 ---
-title: Saara in conversation with Jean Menzies
+title: In conversation with Jean Menzies
 date: 2026-03-13T18:30:00
 type: Book Signing
 location: Pilrig St. Paul's / LARCH, Edinburgh
