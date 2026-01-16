@@ -187,11 +187,17 @@
 
         <!-- Faebound Trilogy -->
         <div class="p-6 text-center w-[280px] md:w-auto snap-center flex-shrink-0">
-          <div class="w-full h-96 mb-6 flex items-center justify-center group overflow-visible">
-            <a href="books.html#faebound" class="block w-full h-full">
+          <div
+            class="w-full h-96 mb-6 flex items-center justify-center group overflow-visible relative book-stack-container">
+            <a href="books.html#faebound" class="block w-full h-full relative z-20">
               <img src="assets/images/faebound.jpg" alt="Faebound"
-                class="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 mx-auto">
+                class="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 mx-auto relative z-20">
             </a>
+            <!-- Back Stack Images -->
+            <img src="assets/images/cursebound.jpg" alt=""
+              class="absolute h-full w-auto object-contain top-0 left-0 right-0 mx-auto z-10 opacity-0 transform scale-95 transition-all duration-500 book-stack-left pointer-events-none">
+            <img src="assets/images/earthbound.jpg" alt=""
+              class="absolute h-full w-auto object-contain top-0 left-0 right-0 mx-auto z-10 opacity-0 transform scale-95 transition-all duration-500 book-stack-right pointer-events-none">
           </div>
           <h3 class="font-display text-xl text-white mb-3">The Faebound Trilogy</h3>
           <p class="text-gray-400 text-sm mb-4">Divided by blood. Imprisoned by fate. Bound by desire.</p>
@@ -199,11 +205,17 @@
 
         <!-- Ending Fire Trilogy -->
         <div class="p-6 text-center w-[280px] md:w-auto snap-center flex-shrink-0">
-          <div class="w-full h-96 mb-6 flex items-center justify-center group overflow-visible">
-            <a href="books.html#ending-fire" class="block w-full h-full">
+          <div
+            class="w-full h-96 mb-6 flex items-center justify-center group overflow-visible relative book-stack-container">
+            <a href="books.html#ending-fire" class="block w-full h-full relative z-20">
               <img src="assets/images/final-strife.jpg" alt="The Final Strife"
-                class="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 mx-auto">
+                class="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 mx-auto relative z-20">
             </a>
+            <!-- Back Stack Images -->
+            <img src="assets/images/battle-drum.jpg" alt=""
+              class="absolute h-full w-auto object-contain top-0 left-0 right-0 mx-auto z-10 opacity-0 transform scale-95 transition-all duration-500 book-stack-left pointer-events-none">
+            <img src="assets/images/ending-fire.jpg" alt=""
+              class="absolute h-full w-auto object-contain top-0 left-0 right-0 mx-auto z-10 opacity-0 transform scale-95 transition-all duration-500 book-stack-right pointer-events-none">
           </div>
           <h3 class="font-display text-xl text-white mb-3">The Ending Fire Trilogy</h3>
           <p class="text-gray-400 text-sm mb-4">An empire built on blood. Three women destined to bring it down.</p>
