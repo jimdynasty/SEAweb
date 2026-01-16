@@ -1,5 +1,5 @@
 ---
-title: Saara in conversation with Elodie Harper
+title: In conversation with Elodie Harper
 date: 2026-03-10T19:00:00
 type: Book Signing
 location: Waterstones, Norwich - Castle Street
