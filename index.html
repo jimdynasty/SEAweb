@@ -332,8 +332,11 @@
   <script src="js/cms-loader.js"></script>
   <script src="js/main.js"></script>
   <script>
-    // Intersection Observer for Book Stack Animation on Scroll
+    // Intersection Observer for Book Stack Animation on Scroll (Mobile Only)
     document.addEventListener('DOMContentLoaded', () => {
+      // Only run on mobile/tablet devices
+      if (window.innerWidth >= 768) return;
+
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
