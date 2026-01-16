@@ -43,18 +43,13 @@ python3 -m http.server 8000
 ## 🚀 Pre-Publish Checklist (To Do)
 
 ### 1. Content Finalization
-- [ ] **Retailer Links**: Update "Buy Now" buttons in `books.html` with real URLs (Amazon, Waterstones, etc).
-- [ ] **Events**: Use the CMS (`/admin`) to add upcoming real events.
-- [ ] **News**: Use the CMS (`/admin`) to add latest news items.
-- [ ] **Privacy Policy**: Create a `privacy.html` page (required for Google Analytics compliance).
+- [ ] **Retailer Links**: Update "Buy Now" buttons in `books.html` with real URLs.
+- [ ] **Events**: Use the CMS to add upcoming real events.
+- [ ] **News**: Use the CMS to add latest news items.
+- [ ] **Privacy Policy**: Review `privacy.html` (created).
+- [ ] **Newsletter**: Set up "Kit" (ConvertKit) account and replace the form action/script in `index.html`.
 
-### 2. Form Configuration
-- [ ] **Web3Forms**: Ensure the `access_key` in `contact.html` is valid and linked to the correct email address.
-- [ ] **Testing**: Send a test message and confirm receipt.
-
-### 3. CMS Setup
-- [ ] **Login**: Verify you can log in to `/admin` using your GitHub account.
-- [ ] **Test Post**: Create a draft news post to ensure the build pipeline triggers correctly.
+### 2. Form Configurationure
 
 ## File Structure
 
