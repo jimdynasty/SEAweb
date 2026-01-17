@@ -41,11 +41,11 @@ python3 -m http.server 8000
 ## 🚀 Pre-Publish Checklist (To Do)
 
 ### 1. Content Finalization
-- [ ] **Retailer Links**: Update "Buy Now" buttons in `books.html` with real URLs.
-- [ ] **Events**: Use the CMS to add upcoming real events.
+- [x] **Retailer Links**: Update "Buy Now" buttons in `books.html` with real URLs.
+- [x] **Newsletter**: Kit (ConvertKit) form integrated.
+- [ ] **Events**: Use CMS to add real events.t news items.
 - [ ] **News**: Use the CMS to add latest news items.
 - [ ] **Privacy Policy**: Review `privacy.html` (created).
-- [ ] **Newsletter**: Set up "Kit" (ConvertKit) account and replace the form action/script in `index.html`.
 
 ### 2. Form Configurationure
 
