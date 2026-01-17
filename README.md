@@ -43,11 +43,20 @@ python3 -m http.server 8000
 ### 1. Content Finalization
 - [x] **Retailer Links**: Update "Buy Now" buttons in `books.html` with real URLs.
 - [x] **Newsletter**: Kit (ConvertKit) form integrated.
-- [ ] **Events**: Use CMS to add real events.t news items.
-- [ ] **News**: Use the CMS to add latest news items.
-- [ ] **Privacy Policy**: Review `privacy.html` (created).
+- [x] **Privacy Policy**: Review `privacy.html` (Complete).
+- [ ] **Events**: Use CMS (`/admin`) to add real events.
+- [ ] **News**: Use CMS (`/admin`) to add latest news items.
 
-### 2. Form Configurationure
+## 🚀 Post-Launch Roadmap
+
+### Phase 1: Content Population (Immediate)
+- [ ] **Events**: Log into `/admin` and populate the "Events" calendar.
+- [ ] **News**: Log into `/admin` and write the first "News" post.
+
+### Phase 2: Enhancements
+- [ ] **Performance**: Run Lighthouse tests and optimize image loading strategies.
+- [ ] **Accessibility**: Conduct a full a11y audit (ARIA labels, keyboard nav).
+- [ ] **SEO**: Monitor Google Search Console for indexing status.
 
 ## File Structure
 
