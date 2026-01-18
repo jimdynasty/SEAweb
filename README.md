@@ -1,69 +1,21 @@
 # Saara El-Arifi - Author Website
 
-A dark fantasy-themed author website for Saara El-Arifi, featuring book showcases, events, news, and contact information.
+An author website for Saara El-Arifi, featuring book showcases, events, news, and contact information.
 
 ## Tech Stack
 
 - **Frontend**: HTML5, CSS3, Tailwind CSS (CDN), Vanilla JavaScript
-- **CMS**: **Sveltia CMS** (Git-based, no backend required)
+- **CMS**: **Sveltia CMS**
 - **Hosting**: GitHub Pages
 - **Forms**: Web3Forms
 
-## Local Development
-
-```bash
-# Start local server
-python3 -m http.server 8000
-
-# Access at http://localhost:8000
-```
-
-## ✅ Completed Features
-
-### Core Design
-- [x] **Dark Fantasy Theme**: Custom `slate-darker` palette, "wisp" decorations, and glassmorphism cards.
-- [x] **Responsive Layout**: Mobile-first design with hamburger menu and stackable grids.
-- [x] **Typography**: 'Italiana' (Display) and 'Inter' (Body) font pairing.
-- [x] **Animations**: Hover effects, scroll reveals, and smooth transitions.
-
-### Interactive Elements
-- [x] **Book Stacks**: "Fan-out" animation on homepage for trilogy series (hover on desktop, scroll-triggered on mobile).
-- [x] **Easter Egg**: "Pudding & Noodle" pixel art reveal on Contact page FAQ hover.
-- [x] **Carousel**: Horizontal scroll snap carousel for books on mobile.
-
-### SEO
-- [x] **Meta Tags**: Title, Description, Open Graph (Social), and Twitter Cards on all pages.
-- [x] **Sitemap**: `sitemap.xml` generated.
-- [x] **Robots**: `robots.txt` configured.
-- [x] **Canonical URLs**: Added to prevent duplicate content issues.
-- [x] **Favicon**: Author logo configured as site icon.
-
-## 🚀 Pre-Publish Checklist (To Do)
-
-### 1. Content Finalization
-- [x] **Retailer Links**: Update "Buy Now" buttons in `books.html` with real URLs.
-- [x] **Newsletter**: Kit (ConvertKit) form integrated.
-- [x] **Privacy Policy**: Review `privacy.html` (Complete).
-- [ ] **Events**: Use CMS (`/admin`) to add real events.
-- [ ] **News**: Use CMS (`/admin`) to add latest news items.
-
-## 🚀 Post-Launch Roadmap
-
-### Phase 1: Content Population (Immediate)
-- [ ] **Events**: Log into `/admin` and populate the "Events" calendar.
-- [ ] **News**: Log into `/admin` and write the first "News" post.
-
-### Phase 2: Enhancements
-- [ ] **Performance**: Run Lighthouse tests and optimize image loading strategies.
-- [ ] **Accessibility**: Conduct a full a11y audit (ARIA labels, keyboard nav).
-- [ ] **SEO**: Monitor Google Search Console for indexing status.
 
 ## File Structure
 
 ```
 /
 ├── index.html              # Homepage (Hero, Author Bio, Featured Books)
-├── books.html             # Full Book List (The Ending Fire, Faebound)
+├── books.html             # Full Book List
 ├── events.html            # Events Calendar (CMS Powered)
 ├── news.html              # Latest News (CMS Powered)
 ├── contact.html           # Contact Form & FAQs
@@ -80,10 +32,6 @@ python3 -m http.server 8000
     ├── main.js           # UI Interactions (Mobile Menu, Scroll Observers)
     └── cms-loader.js     # JSON Content Loader
 ```
-
-## CMS Guide
-
-Refer to `CMS_GUIDE.md` for instructions on how to add/edit News and Events.
 
 ## License
 
