@@ -208,8 +208,12 @@ function spawnEntity() {
         });
     }
 
-    const minGap = 35 + (gameSpeed * 1.5);
-    const variance = Math.random() * 90;
+    // Gap Logic: 
+    // Jump air-time is ~40 frames. We need at least that much safe buffer.
+    // Previously: 35 + speed*1.5 -> grew too large at high speed.
+    // New: Fixed safety floor + variable variance that doesn't scale wildly.
+    const minGap = 40;
+    const variance = Math.random() * Math.max(20, 100 - gameSpeed * 4);
     nextSpawnFrame = frames + minGap + variance;
 }
 
