@@ -53,25 +53,62 @@
     <link rel="stylesheet" href="css/styles.css?v=1">
 </head>
 
-<body class="font-body flex items-center justify-center min-h-screen text-center px-6">
+<body class="font-body flex flex-col min-h-screen">
     <!-- Background -->
     <div class="bg-pattern"></div>
     <div class="bg-overlay"></div>
 
-    <div class="max-w-2xl mx-auto z-10">
-        <!-- Icon/Graphic -->
-        <div class="mb-8 flex justify-center">
-            <div class="w-24 h-24 bg-accent/10 flex items-center justify-center border border-accent/30 glow-accent">
-                <svg class="w-12 h-12 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
+    <!-- Header - Transparent, no background -->
+    <header class="absolute top-0 left-0 right-0 z-50">
+        <nav class="max-w-7xl mx-auto px-16 lg:px-24 py-32 flex items-center justify-end">
+            <!-- Desktop Navigation (right-aligned, vertically centered with logo) -->
+            <div class="nav-desktop hidden md:flex items-center gap-8">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="books.html" class="nav-link">Books</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="hamburger md:hidden ml-auto" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="absolute top-6 right-6 text-white text-3xl" onclick="toggleMobileMenu()">&times;</button>
+        <a href="index.html" class="text-2xl text-white mb-6">Home</a>
+        <a href="books.html" class="text-2xl text-white mb-6">Books</a>
+        <a href="events.html" class="text-2xl text-gray-400 hover:text-white mb-6">Events</a>
+        <a href="news.html" class="text-2xl text-gray-400 hover:text-white mb-6">News</a>
+        <a href="contact.html" class="text-2xl text-gray-400 hover:text-white">Contact</a>
+    </div>
+
+    <!-- Page Header with Logo -->
+    <section class="pt-12 pb-0 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 text-center">
+            <!-- Large Logo overlapping navbar -->
+            <div class="relative z-40 -mt-4 mb-0 flex justify-center md:justify-start">
+                <img src="assets/images/authorlogo.png" alt="Saara El-Arifi"
+                    class="h-40 md:h-64 lg:h-72 w-auto max-w-full object-contain logo-white">
             </div>
         </div>
+    </section>
 
-        <!-- 404 Text -->
-        <h1 class="font-display text-5xl md:text-7xl text-white mb-6">404</h1>
+    <!-- 404 Text Section -->
+    <div class="text-center mb-6 px-6 -mt-4 md:-mt-8">
+        <h1 class="font-display text-[8rem] md:text-[12rem] text-white leading-none mb-2">404</h1>
         <h2 class="font-display text-2xl md:text-3xl text-accent mb-6">You've strayed from the path.</h2>
+    </div>
+
+    <div class="max-w-2xl mx-auto z-10 px-6 text-center">
+        <!-- Icon/Graphic (Retain or Remove? I'll remove the diamond icon since we have the logo now, or keep it. User said 'same font and spacing' 'reference books.html'. Books.html has no icon below logo. I will remove the icon container) -->
+        <!-- Actually, I'll just remove the icon container lines in the replacement -->
 
         <p class="text-gray-300 text-lg md:text-xl leading-relaxed mb-10 max-w-lg mx-auto">
             This scroll seems to be missing from the library. It may have been burned, or perhaps it was never
@@ -79,7 +116,7 @@
         </p>
 
         <!-- Action -->
-        <a href="index.html" class="btn-primary">
+        <a href="index.html" class="btn-primary inline-block">
             Return to Safety
         </a>
 
@@ -94,17 +131,103 @@
                 class="bg-white/10 border border-white/20 rounded-lg mx-auto max-w-full"></canvas>
 
             <!-- Artist Credit -->
-            <div class="mt-2 text-[10px] text-gray-500 font-mono opacity-60">
+            <div class="mt-2 text-[10px] text-gray-500 font-mono opacity-60 mb-16">
                 Forest art by <a href="https://edermuniz.carrd.co/" target="_blank" rel="noopener noreferrer"
                     class="hover:text-accent transition-colors">Eder Muniz</a>
             </div>
         </div>
-
-        <div class="mt-12 text-xs text-gray-600 uppercase tracking-widest">
-            <a href="privacy.html" class="hover:text-accent transition-colors">Privacy Policy</a>
-        </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="py-8 md:py-12 w-full mt-auto">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 lg:px-24">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <!-- Left: Logo & Text -->
+                <div class="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+                    <a href="index.html">
+                        <img src="assets/images/authorlogo.png" alt="Saara El-Arifi"
+                            class="h-16 lg:h-20 logo-white hover:opacity-80 transition">
+                    </a>
+                    <p class="text-gray-400 text-sm max-w-xs">No. 1 Sunday Times bestselling author of fantasy
+                        and
+                        historical
+                        fiction.</p>
+                </div>
+
+                <!-- Right: Icons (Quick Links + Social) -->
+                <div class="flex flex-wrap justify-center items-center gap-3 mr-12">
+                    <!-- Quick Links -->
+                    <a href="index.html" aria-label="Home" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                    </a>
+                    <a href="books.html" aria-label="Books" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </a>
+                    <a href="events.html" aria-label="Events" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </a>
+                    <a href="news.html" aria-label="News" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                        </svg>
+                    </a>
+                    <a href="contact.html" aria-label="Contact" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </a>
+
+                    <!-- Social Links (Inverse Style) -->
+                    <a href="https://instagram.com/saaraelarifi" target="_blank" class="social-icon social-icon-inverse"
+                        aria-label="Instagram">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M18,5A1,1 0 0,1 19,6A1,1 0 0,1 18,7A1,1 0 0,1 17,6A1,1 0 0,1 18,5Z" />
+                        </svg>
+                    </a>
+                    <a href="https://tiktok.com/@saaraelarifi" target="_blank" class="social-icon social-icon-inverse"
+                        aria-label="TikTok">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+                        </svg>
+                    </a>
+                    <a href="game.html" class="social-icon social-icon-inverse hover:text-accent"
+                        aria-label="Play Game">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 512 512">
+                            <path
+                                d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.7-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.7 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54.2-47.3 78.7-33.3s29.1 51.7 10.2 84.1s-54.2 47.3-78.7 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">&copy; 2026 Saara El-Arifi. All rights reserved. <span
+                        class="mx-2 text-white/20">|</span> <a href="privacy.html"
+                        class="hover:text-accent transition-colors">Privacy Policy</a></p>
+                <p class="text-gray-500 text-sm">Illustrations and logo by © Sophie Dunster</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
     <script src="js/game.js"></script>
 </body>
 
