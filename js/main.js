@@ -216,3 +216,48 @@ document.addEventListener('DOMContentLoaded', () => {
     initCarousel('faebound-carousel', 'faebound-dots');
     initCarousel('ending-fire-carousel', 'ending-fire-dots');
 });
+
+
+// ============================================
+// EASTER EGGS 🥚
+// ============================================
+(function () {
+    let inputs = [];
+    const konami = 'ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba';
+    const pudding = 'pudding';
+
+    document.addEventListener('keydown', (e) => {
+        // IGNORE INPUTS (Forms, Search, etc)
+        const tag = e.target.tagName.toLowerCase();
+        if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) {
+            return;
+        }
+
+        // Build Log: Key for Konami, Lowercase Key for Pudding
+        const key = e.key;
+
+        // PUDDING CHECK
+        // Only track letters for Pudding
+        if (key.length === 1 && key.match(/[a-z]/i)) {
+            inputs.push(key.toLowerCase());
+        }
+        // KONAMI CHECK
+        else {
+            inputs.push(key);
+        }
+
+        // Keep buffer reasonable
+        if (inputs.length > 20) {
+            inputs.shift();
+        }
+
+        const log = inputs.join('');
+
+        if (log.includes(konami) || log.includes(pudding)) {
+            // Trigger Reset
+            inputs = [];
+            // Redirect to Game Page
+            window.location.href = 'game.html';
+        }
+    });
+})();
