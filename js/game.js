@@ -9,6 +9,7 @@ let gameSpeed = 5;
 let animationId = null;
 let frames = 0; // Effectively "Time elapsed in 60hz frames"
 let gamePhase = 1; // 1 = Phase 1 (Pudding), 2 = Transition, 3 = Phase 2 (Noodle)
+let nextSpeedThreshold = 10;
 
 // Delta Time Logic
 let lastTime = 0;
@@ -170,6 +171,77 @@ const bgMidLayer = new Layer(assets.bgMid, 0.5);
 const fgLayer = new Layer(assets.fg, 1.0);
 
 
+// ---------------------------------------------------------
+// DIALOGUE SYSTEM
+// ---------------------------------------------------------
+const DIALOGUE_SCRIPT = [
+    { actor: 'p', text: "Late again, Noodle?", duration: 100 },
+    { actor: 'n', text: "A wizard arrives precisely when she means to.", duration: 120 },
+    { actor: 'p', text: "You were asleep in the laundry.", duration: 120 },
+    { actor: 'n', text: "Strategising! I was strategising!", duration: 120 },
+    { actor: 'p', text: "Whatever. Tag! You're it!", duration: 100 },
+    { actor: 'n', text: "I better get treats for this...", duration: 120 }
+];
+
+const PHASE_1_DIALOGUE = [
+    { score: 1, text: "Let's grab those pages, Noodle!", duration: 120, shown: false },
+    { score: 10, text: "Wait, where is Noodle?!", duration: 100, shown: false },
+    { score: 55, text: "Noodle! A little help, please.", duration: 120, shown: false },
+    { score: 80, text: "NOODLE!", duration: 100, shown: false }
+];
+
+function drawSpeechBubble(ctx, text, x, y, isLeft, textColor = '#000000') {
+    ctx.save();
+    ctx.font = 'bold 14px "Courier New", monospace';
+    const padding = 10;
+    const textWidth = ctx.measureText(text).width;
+    const boxWidth = textWidth + padding * 2;
+    const boxHeight = 24 + padding;
+
+    // Position bubble above actor
+    // Updated Logic: Use x+65 (Front Edge) as anchor
+    // Sprite center is 40. Mouth is ~70.
+    // Tail is at bx+5. So if bx = x+65, Tail = x+70. Perfect.
+    // User Update: x+75 for better alignment
+    let bx = isLeft ? x - boxWidth + 20 : x + 75;
+    let by = y - 40;
+
+    // Keep on screen
+    if (bx < 10) bx = 10;
+    if (bx + boxWidth > canvas.width - 10) bx = canvas.width - boxWidth - 10;
+
+    // Bubble
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.roundRect(bx, by, boxWidth, boxHeight, 8);
+    ctx.fill();
+    ctx.stroke();
+
+    // Tail
+    ctx.beginPath();
+    if (isLeft) {
+        ctx.moveTo(bx + boxWidth - 15, by + boxHeight);
+        ctx.lineTo(bx + boxWidth - 5, by + boxHeight + 10);
+        ctx.lineTo(bx + boxWidth - 5, by + boxHeight);
+    } else {
+        ctx.moveTo(bx + 5, by + boxHeight);
+        ctx.lineTo(bx + 5, by + boxHeight + 10);
+        ctx.lineTo(bx + 15, by + boxHeight);
+    }
+    ctx.fill();
+    ctx.stroke();
+
+    // Text
+    ctx.fillStyle = textColor;
+    ctx.fillText(text, bx + padding, by + 20); // y is baseline, approx logic
+
+    ctx.restore();
+}
+// ---------------------------------------------------------
+
 // Entities
 let obstacles = [];
 let collectibles = [];
@@ -178,6 +250,10 @@ let nextSpawnFrame = 0;
 let isPressed = false;
 let phaseTransitionTimer = 0;
 let phase3Timer = 0; // Timer for Phase 3 buffer
+let dialogueIndex = 0;
+let dialogueTimer = 0;
+let p1DialogueTimer = 0;
+let p1ActiveLine = null;
 
 // ---------------------------------------------------------
 // INPUT HANDLERS
@@ -250,8 +326,18 @@ function startGame() {
     phaseTransitionTimer = 0;
     phase3Timer = 0;
 
+    // Reset Dialogue
+    dialogueIndex = 0;
+    dialogueTimer = 0;
+
+    // Reset Phase 1 Dialogue
+    PHASE_1_DIALOGUE.forEach(l => l.shown = false);
+    p1DialogueTimer = 0;
+    p1ActiveLine = null;
+
     // Reset Phase
     gamePhase = 1;
+    nextSpeedThreshold = 10;
 
     // Reset Actors (Start on Ground)
     const startY = canvas.height - GROUND_HEIGHT - 40; // 40 is height
@@ -313,25 +399,42 @@ function spawnEntity() {
     const useP2Assets = (gamePhase === 3);
 
     // Safety Logic:
+    // Safety Logic:
     // 1. Transitioning (Phase 2) -> Unsafe
     // 2. Early Phase 3 (Handover Buffer) -> Unsafe (first 180 frames / ~3s)
     const isTransitioning = (gamePhase === 2) || (gamePhase === 3 && phase3Timer < 180);
 
-    // Determine type: Page or Obstacle?
-    // 30% chance for Page. 
-    // BUT if transitioning, Force Page (or nothing), effectively 0% obstacle chance.
+    // User Request: Skip ALL spawns during transition so dialogue is clear
+    if (isTransitioning) {
+        const minGap = 40;
+        const variance = Math.random() * Math.max(20, 100 - gameSpeed * 4);
+        nextSpawnFrame = frames + minGap + variance;
+        return;
+    }
 
+    // Determine type: Page or Obstacle?
+    // 25% chance for Page. 
     let spawnType = 'obstacle'; // default
-    if (Math.random() < 0.3 || isTransitioning) {
+    if (Math.random() < 0.25) {
         spawnType = 'collectible';
     }
 
     if (spawnType === 'collectible') {
-        // Collectible Spawn
+        // Collectible Spawn with Variable Heights
+        // Low: No jump needed (~45px)
+        // Mid: Jump (~90px)
+        // High: High jump (~140px)
+        const tier = Math.random();
+        let flyHeight = 100; // default mid
+
+        if (tier < 0.20) flyHeight = 45;        // Low
+        else if (tier < 0.60) flyHeight = 90;  // Mid
+        else flyHeight = 140;                   // High
+
         collectibles.push({
             x: canvas.width,
-            y: canvas.height - GROUND_HEIGHT - 100, // standard fly height
-            baseY: canvas.height - GROUND_HEIGHT - 100,
+            y: canvas.height - GROUND_HEIGHT - flyHeight,
+            baseY: canvas.height - GROUND_HEIGHT - flyHeight,
             width: 30,
             height: 40,
             img: assets.page,
@@ -374,8 +477,11 @@ function spawnEntity() {
         }
     }
 
-    const minGap = 40;
-    const variance = Math.random() * Math.max(20, 100 - gameSpeed * 4);
+    // Dynamic Gap: Keep density constant as speed increases
+    // 300px / speed = time. Speed 5 -> 60 frames. Speed 20 -> 15 frames.
+    const minGap = 300 / gameSpeed;
+    // Lowered variance ceiling (100 -> 60) to compensate for larger minGap
+    const variance = Math.random() * Math.max(20, 60 - gameSpeed * 2);
     nextSpawnFrame = frames + minGap + variance;
 }
 
@@ -394,10 +500,12 @@ function createParticles(x, y) {
 }
 
 function checkSpeedIncrease() {
-    // Increase speed every 10 points
-    if (score % 10 === 0 && score > 0) {
+    // Increase speed every 10 points (Threshold Check)
+    // Using >= ensures we catch it even if a +5 page jumps us past the exact number
+    if (score >= nextSpeedThreshold) {
         if (gameSpeed < 20) {
-            gameSpeed += 0.5;
+            gameSpeed += 0.25;
+            nextSpeedThreshold += 10;
         }
     }
 }
@@ -430,9 +538,15 @@ function animate(currentTime) {
         noodle.visible = true;
         noodle.x = -80; // Start off screen left
 
-        // Speed Up Parallax for Transition (Faster effect)
-        bgFarLayer.speedModifier = 0.6;
-        bgMidLayer.speedModifier = 0.8;
+        // Speed Up Parallax for Transition (Faster effect) - Slowed slightly per user request
+        bgFarLayer.speedModifier = 0.3;
+        bgMidLayer.speedModifier = 0.5;
+
+        // Force Clear Phase 1 Dialogue on Transition
+        p1ActiveLine = null;
+
+        // Safety Clean: Remove existing obstacles so Noodle enters safely
+        obstacles = [];
 
         // Queue Assets: Next Wrap = Transition, Following = Phase 2
         bgFarLayer.queueTransition(assets.tr_bgFar, assets.p2_bgFar);
@@ -449,7 +563,7 @@ function animate(currentTime) {
             noodle.x = pudding.x - 50; // Lock pos
         }
 
-        // 2. Check for End of Transition (Handover)
+        // 3. Check for End of Transition (Handover)
         if (bgMidLayer.activeImage === assets.p2_bgMid) {
             // Handover time!
             gamePhase = 3; // Noodle Mode
@@ -475,6 +589,20 @@ function animate(currentTime) {
             // Pudding gone, Noodle takes main stage
             if (noodle.x < 50) {
                 noodle.x += 1 * dt;
+            }
+        }
+    }
+
+    // UPDATE DIALOGUE (Global for P2/P3)
+    // Run if transition started (P2) or continuing (P3)
+    if ((gamePhase === 2 || gamePhase === 3) && dialogueIndex < DIALOGUE_SCRIPT.length) {
+        // Check trigger condition (Noodle roughly in place)
+        if (noodle.visible && noodle.x > -100) {
+            dialogueTimer += dt;
+            // If current line finished, advance
+            if (dialogueTimer > DIALOGUE_SCRIPT[dialogueIndex].duration) {
+                dialogueIndex++;
+                dialogueTimer = 0;
             }
         }
     }
@@ -524,6 +652,45 @@ function animate(currentTime) {
             ctx.fillRect(actor.x, actor.y, actor.width, actor.height);
         }
     });
+
+    // Render Dialogue Bubbles (Phase 2 AND Phase 3)
+    // Always render bubble to the RIGHT of the actor to keep it on-screen
+    if ((gamePhase === 2 || gamePhase === 3) && dialogueIndex < DIALOGUE_SCRIPT.length && noodle.x > -100) {
+        const line = DIALOGUE_SCRIPT[dialogueIndex];
+        const actor = line.actor === 'p' ? pudding : noodle;
+
+        if (actor.visible) {
+            const textColor = (line.actor === 'p') ? '#654321' : '#374151'; // Brown for Pudding, Grey for Noodle
+            drawSpeechBubble(ctx, line.text, actor.x, actor.y, false, textColor);
+        }
+    }
+
+    // Render Phase 1 Dialogue (Pudding Only)
+    // Runs inside animate loop during gamePhase === 1
+    if (gamePhase === 1) {
+        // Check Triggers
+        PHASE_1_DIALOGUE.forEach(line => {
+            if (!line.shown && score >= line.score) {
+                line.shown = true;
+                p1ActiveLine = line;
+                p1DialogueTimer = line.duration;
+            }
+        });
+
+        // Update Timer
+        if (p1ActiveLine) {
+            p1DialogueTimer -= dt;
+            if (p1DialogueTimer <= 0) {
+                p1ActiveLine = null;
+            }
+        }
+
+        // Render
+        if (p1ActiveLine && pudding.visible) {
+            // Always Pudding, so use Brown #654321
+            drawSpeechBubble(ctx, p1ActiveLine.text, pudding.x, pudding.y, false, '#654321');
+        }
+    }
 
 
     // 3. OBJECTS (Collectibles/Obstacles)
