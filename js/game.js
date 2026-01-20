@@ -8,8 +8,6 @@ let highScore = 0;
 let gameSpeed = 5;
 let animationId = null;
 let frames = 0; // Effectively "Time elapsed in 60hz frames"
-let gamePhase = 1; // 1 = Pudding, 2 = Noodle
-let phaseTransitionTimer = 0; // For flash effect
 
 // Delta Time Logic
 let lastTime = 0;
@@ -36,7 +34,6 @@ const pudding = {
 // ASSETS LOAD
 const assets = {
     pudding: new Image(),
-    noodle: new Image(), // Phase 2 Playe assets.noodle.src = '/assets/images/game/noodle-run.png';
     page: new Image(),
     obLow: new Image(),
     obMid: new Image(),
@@ -47,7 +44,6 @@ const assets = {
 };
 
 assets.pudding.src = '/assets/images/game/pudding-run.png';
-assets.noodle.src = '/assets/images/game/noodle-run.png';
 assets.page.src = '/assets/images/game/pages.png';
 assets.obLow.src = '/assets/images/game/ob-low.png';
 assets.obMid.src = '/assets/images/game/ob-mid.png';
@@ -321,33 +317,11 @@ function animate(currentTime) {
 
     if (frames >= nextSpawnFrame) spawnEntity();
 
-
-    // Phase Transition Check
-    if (gamePhase === 1 && score >= 500) {
-        gamePhase = 2;
-        phaseTransitionTimer = 1.0;
-        // Optional: Swap Obstacle Assets here if strictly needed, 
-        // but user requested "simple asset swap", so we just do bg/player.
-        // We can create a "visual" check in draw loop.
-    }
-
-    if (phaseTransitionTimer > 0) {
-        phaseTransitionTimer -= 0.02 * dt;
-        if (phaseTransitionTimer < 0) phaseTransitionTimer = 0;
-    }
-
     // 1. BACKGROUND
-    ctx.save();
-    if (gamePhase === 2) {
-        // Night Mode Filter
-        ctx.filter = 'brightness(0.6) contrast(1.2) hue-rotate(200deg)';
-    }
-
     bgFarLayer.update(dt);
     bgFarLayer.draw();
     bgMidLayer.update(dt);
     bgMidLayer.draw();
-    ctx.restore();
 
     // Player Physics
     pudding.dy += GRAVITY * dt;
@@ -371,15 +345,10 @@ function animate(currentTime) {
     }
 
     // 2. GAMEPLAY
-    let playerImg = assets.pudding;
-    if (gamePhase === 2 && assets.noodle.complete && assets.noodle.naturalWidth !== 0) {
-        playerImg = assets.noodle;
-    }
-
-    if (playerImg.complete && playerImg.naturalWidth !== 0) {
-        ctx.drawImage(playerImg, pudding.frame * 160, 0, 160, 80, pudding.x, pudding.y, pudding.width, pudding.height);
+    if (assets.pudding.complete && assets.pudding.naturalWidth !== 0) {
+        ctx.drawImage(assets.pudding, pudding.frame * 160, 0, 160, 80, pudding.x, pudding.y, pudding.width, pudding.height);
     } else {
-        ctx.fillStyle = gamePhase === 2 ? '#fbbf24' : '#e91e8c'; // Gold for Noodle, Pink for Pudding
+        ctx.fillStyle = '#e91e8c';
         ctx.fillRect(pudding.x, pudding.y, pudding.width, pudding.height);
     }
 
@@ -461,14 +430,8 @@ function animate(currentTime) {
     let hiText = `HI: ${highScore > score ? highScore : score}`;
     ctx.fillText(hiText, canvas.width - 20, 30);
     let hiWidth = ctx.measureText(hiText).width;
-    ctx.fillStyle = gamePhase === 2 ? '#fbbf24' : '#e91e8c'; // Gold score in Phase 2
+    ctx.fillStyle = '#e91e8c';
     ctx.fillText(`SCORE: ${score}   `, canvas.width - 20 - hiWidth, 30);
 
     ctx.textAlign = 'left';
-
-    // Transition Flash
-    if (phaseTransitionTimer > 0) {
-        ctx.fillStyle = `rgba(255, 255, 255, ${phaseTransitionTimer})`;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
 }
