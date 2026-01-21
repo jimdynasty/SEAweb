@@ -119,12 +119,15 @@
             </div>
             <!-- Game Over Screen -->
             <div id="gameOverMsg"
-                class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/90 z-30 hidden rounded-lg border border-white/20">
-                <h2 class="font-display text-5xl md:text-7xl text-accent mb-2">GAME OVER</h2>
-                <p class="text-white/80 font-mono text-lg mb-2">Score: <span id="finalScore">0</span></p>
-                <p class="text-accent/80 font-mono text-sm mb-6">High Score: <span id="finalHighScore">0</span></p>
-                <p class="text-white/60 font-mono text-sm border border-white/40 rounded px-3 py-1 animate-pulse">PRESS
-                    SPACE TO RETRY</p>
+                class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/90 z-30 hidden rounded-lg border border-white/20 p-4">
+                <h2 class="font-display text-3xl md:text-7xl text-accent mb-1 md:mb-2">GAME OVER</h2>
+                <div class="flex gap-4 mb-2 md:mb-6">
+                    <p class="text-white/80 font-mono text-xs md:text-lg">Score: <span id="finalScore">0</span></p>
+                    <p class="text-accent/80 font-mono text-xs md:text-lg">High: <span id="finalHighScore">0</span></p>
+                </div>
+                <p
+                    class="text-white/60 font-mono text-[10px] md:text-sm border border-white/40 rounded px-2 py-1 md:px-3 animate-pulse text-center leading-tight">
+                    PRESS SPACE<br class="md:hidden"> OR TAP TO RETRY</p>
             </div>
             <canvas id="gameCanvas" width="600" height="200"
                 class="bg-white/10 border border-white/20 rounded-lg w-full h-auto"
@@ -133,13 +136,14 @@
 
         <!-- Artist Credit -->
         <div class="mt-2 text-xs text-gray-500 font-mono opacity-60">
-            Forest art by <a href="https://edermuniz.carrd.co/" target="_blank" rel="noopener noreferrer"
+            Scenery art by <a href="https://edermuniz.carrd.co/" target="_blank" rel="noopener noreferrer"
                 class="hover:text-accent transition-colors">Eder Muniz</a>
         </div>
 
         <!-- Controls Hint -->
         <div class="mt-4 flex justify-center gap-6 text-xs text-gray-500 font-mono mb-16">
-            <span class="flex items-center"><span class="border border-gray-600 rounded px-1.5 py-0.5 mr-2">SPACE</span>
+            <span class="flex items-center"><span class="border border-gray-600 rounded px-1.5 py-0.5 mr-2">SPACE OR
+                    TAP</span>
                 JUMP</span>
             <span class="flex items-center"><span
                     class="border border-gray-600 rounded px-1.5 py-0.5 mr-2">RELEASE</span> SHORT HOP</span>

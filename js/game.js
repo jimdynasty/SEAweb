@@ -175,24 +175,25 @@ const fgLayer = new Layer(assets.fg, 1.0);
 // DIALOGUE SYSTEM
 // ---------------------------------------------------------
 const DIALOGUE_SCRIPT = [
-    { actor: 'p', text: "Late again, Noodle?", duration: 100 },
-    { actor: 'n', text: "A wizard arrives precisely when she means to.", duration: 120 },
+    { actor: 'p', text: "Late again, Noodle?", duration: 120 },
+    { actor: 'n', text: "I was busy strategising.", duration: 120 },
     { actor: 'p', text: "You were asleep in the laundry.", duration: 120 },
-    { actor: 'n', text: "Strategising! I was strategising!", duration: 120 },
-    { actor: 'p', text: "Whatever. Tag! You're it!", duration: 100 },
+    { actor: 'n', text: "Strategising!", duration: 120 },
+    { actor: 'p', text: "Whatever. Tag! You're it!", duration: 120 },
     { actor: 'n', text: "I better get treats for this...", duration: 120 }
 ];
 
 const PHASE_1_DIALOGUE = [
     { score: 1, text: "Let's grab those pages, Noodle!", duration: 120, shown: false },
-    { score: 10, text: "Wait, where is Noodle?!", duration: 100, shown: false },
+    { score: 10, text: "Wait, where is Noodle?!", duration: 120, shown: false },
     { score: 55, text: "Noodle! A little help, please.", duration: 120, shown: false },
-    { score: 80, text: "NOODLE!", duration: 100, shown: false }
+    { score: 80, text: "NOODLE!", duration: 120, shown: false }
 ];
 
 function drawSpeechBubble(ctx, text, x, y, isLeft, textColor = '#000000') {
     ctx.save();
-    ctx.font = 'bold 14px "Courier New", monospace';
+    // User Update: Increased font size for mobile readability (14px -> 18px)
+    ctx.font = 'bold 18px "Courier New", monospace';
     const padding = 10;
     const textWidth = ctx.measureText(text).width;
     const boxWidth = textWidth + padding * 2;
@@ -539,8 +540,8 @@ function animate(currentTime) {
         noodle.x = -80; // Start off screen left
 
         // Speed Up Parallax for Transition (Faster effect) - Slowed slightly per user request
-        bgFarLayer.speedModifier = 0.3;
-        bgMidLayer.speedModifier = 0.5;
+        bgFarLayer.speedModifier = 0.4;
+        bgMidLayer.speedModifier = 0.6;
 
         // Force Clear Phase 1 Dialogue on Transition
         p1ActiveLine = null;
@@ -796,7 +797,12 @@ function animate(currentTime) {
 }
 
 // Listeners
-window.addEventListener('keydown', (e) => handleInputStart(e.code));
+window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+        e.preventDefault(); // Stop Browser Scroll
+    }
+    handleInputStart(e.code);
+});
 window.addEventListener('keyup', (e) => handleInputEnd(e.code));
 window.addEventListener('touchstart', (e) => handleInputStart('Touch'));
 window.addEventListener('touchend', (e) => handleInputEnd('Touch'));
